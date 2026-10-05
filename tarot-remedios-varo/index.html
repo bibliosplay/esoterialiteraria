@@ -3,10 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tarot Remedios Varo · Juego Digital y Manual</title>
+<title>Tarot Remedios Varo · Juego Digital, Oráculo y Manual</title>
+<meta name="description" content="Mazo completo de 78 cartas de Tarot inspirado en la obra y alquimia surrealista de Remedios Varo (1908–1963).">
 <link rel="stylesheet" href="css/styles.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=EB+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
 </head>
 <body data-biblio="varotarot">
@@ -15,20 +17,38 @@
 
 <header class="site-header">
   <div class="container header-inner">
-    <h1 class="brand">Tarot <span class="brand-accent">Remedios Varo</span></h1>
-    <p class="tagline">Un mazo surrealista inspirado en la obra de Remedios Varo · 78 cartas</p>
-    <nav class="main-nav" id="main-nav">
-      <button class="nav-btn active" data-view="view-home">Inicio</button>
-      <button class="nav-btn" data-view="view-reading">Lecturas</button>
-      <button class="nav-btn" data-view="view-gallery">Galería del mazo</button>
-      <button class="nav-btn" data-view="view-manual">Manual completo</button>
-    </nav>
+    <div class="brand-wrapper">
+      <h1 class="brand">Tarot <span class="brand-accent">Remedios Varo</span></h1>
+    </div>
+
+    <div class="header-controls">
+      <!-- Controles de Audio Procedural Alquímico -->
+      <div class="audio-bar" title="Paisaje Sonoro Alquímico en Web Audio API">
+        <button id="btnMusicToggle" class="btn-audio" title="Iniciar/Pausar música ambiental">🎵 Música Astral</button>
+        <select id="moodSelector" class="mood-selector" title="Ambiente sonoro">
+          <option value="atelier">El Taller Alquímico</option>
+          <option value="celestial">La Cazadora de Astros (432Hz)</option>
+          <option value="clockwork">Mecanismos del Destino</option>
+        </select>
+        <button id="btnMuteToggle" class="btn-audio" title="Silenciar / Activar sonido">🔊</button>
+        <input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.05" value="0.5" title="Volumen General">
+      </div>
+
+      <!-- Navegación Principal -->
+      <nav class="main-nav" id="main-nav" aria-label="Navegación del Tarot">
+        <button class="nav-btn active" data-view="view-home">Inicio</button>
+        <button class="nav-btn" data-view="view-reading">Lecturas</button>
+        <button class="nav-btn" data-view="view-gallery">Galería</button>
+        <button class="nav-btn" data-view="view-manual">Manual</button>
+        <button class="nav-btn" data-view="view-journal">Grimorio</button>
+      </nav>
+    </div>
   </div>
 </header>
 
 <main class="container">
 
-  <!-- ============ VISTA INICIO ============ -->
+  <!-- ============ VISTA 1: INICIO ============ -->
   <section id="view-home" class="view view-active">
     <div class="hero">
       <div class="hero-art" aria-hidden="true">
@@ -47,12 +67,12 @@
           y funciona como un portal simbólico hacia su universo.
         </p>
         <p>
-          Remedios, fugitiva de la guerra, construyó un mundo donde la ciencia exacta se vuelve inútil poesía y
+          Remedios construyó un mundo donde la ciencia exacta se vuelve poesía viva y
           donde los relojes miden no el tiempo sino la revelación. Este juego digital explora esas ideas: <em>el
-          mazo es un laboratorio, la lectura un experimento.</em>
+          mazo es un laboratorio, la lectura un experimento del Ser.</em>
         </p>
         <div class="hero-actions">
-          <button class="btn btn-primary" data-go="reading">Hacer una lectura</button>
+          <button class="btn btn-primary" data-go="reading">Hacer una lectura ➔</button>
           <button class="btn btn-secondary" data-go="gallery">Explorar el mazo</button>
         </div>
       </div>
@@ -65,72 +85,120 @@
       </article>
       <article class="feature-card">
         <h3>56 Arcanos Menores</h3>
-        <p>Cuatro palos que siguen los oficios de Varo: bastos como llamas de creación, copas como aguas de emoción, espadas como cortes de claridad y oros como tejidos terrenales.</p>
+        <p>Cuatro palos alquímicos: bastos de fuego creador, copas de agua emocional, espadas de aire lúcido y oros de tierra tangible.</p>
       </article>
       <article class="feature-card">
-        <h3>Manual explicativo</h3>
-        <p>Cada carta incluye simbolismo, interpretación en posición recta e invertida, su pintura de referencia y un consejo práctico.</p>
+        <h3>Volteo 3D y Web Audio</h3>
+        <p>Cartas interactivas tridimensionales, música procedural a 432 Hz y sonidos táctiles de barajado y arpa cósmica.</p>
+      </article>
+      <article class="feature-card">
+        <h3>Manual & Grimorio</h3>
+        <p>Manual analítico para cada una de las 78 obras con consejos prácticos y guardado local de tus tiradas.</p>
       </article>
     </div>
   </section>
 
-  <!-- ============ VISTA LECTURAS ============ -->
+  <!-- ============ VISTA 2: MESA DE LECTURAS ============ -->
   <section id="view-reading" class="view">
-    <div class="reading-config">
-      <h2>Lecturas</h2>
-      <p class="lead">Elige el tipo de tirada. Las cartas se barajan y se extraen del mazo completo de 78.</p>
-      <div class="spread-options">
-        <button class="spread-btn" data-spread="one">Carta del día</button>
-        <button class="spread-btn" data-spread="three">Pasado · Presente · Futuro</button>
-        <button class="spread-btn" data-spread="celtic">Cruz celta</button>
+    <div class="reading-config-card">
+      <h2>Mesa de Lecturas Oraculares</h2>
+      <p class="lead">Formula tu consulta y elige el tipo de tirada. Las cartas se barajan y se extraen del mazo completo de 78.</p>
+
+      <div class="question-input-box">
+        <label for="reading-question">Tu pregunta o intención para el oráculo (opcional):</label>
+        <input type="text" id="reading-question" class="input-consultation" placeholder="Ej: ¿Qué aspecto de mi creatividad necesita ser despertado?">
       </div>
-      <div id="spread-description" class="spread-description"></div>
-      <button id="btn-draw" class="btn btn-primary" disabled>Barajar y extraer</button>
+
+      <div class="spread-options">
+        <button class="spread-btn" data-spread="one">Carta del día (1)</button>
+        <button class="spread-btn selected" data-spread="three">Pasado · Presente · Futuro (3)</button>
+        <button class="spread-btn" data-spread="alchemy">Alquimia de 4 Elementos (4)</button>
+        <button class="spread-btn" data-spread="celtic">Cruz Celta Sagrada (10)</button>
+      </div>
+
+      <div id="spread-description" class="spread-description">
+        Tres cartas: la primera teje el pasado como los hilos del destino; la segunda ilumina el presente en su laboratorio; la tercera esboza la corriente que viene hacia ti.
+      </div>
+
+      <div class="spread-action-row">
+        <label class="option-toggle">
+          <input type="checkbox" id="toggle-reversed" checked>
+          <span>Permitir cartas invertidas (significados de sombra e introspección)</span>
+        </label>
+        <button id="btn-draw" class="btn btn-primary">Barajar y Extender Cartas ✨</button>
+      </div>
     </div>
+
+    <!-- Área interactiva de cartas y tablero -->
     <div id="reading-result" class="reading-result"></div>
   </section>
 
-  <!-- ============ VISTA GALERÍA ============ -->
+  <!-- ============ VISTA 3: GALERÍA DEL MAZO ============ -->
   <section id="view-gallery" class="view">
-    <h2>Galería del mazo</h2>
-    <p class="lead">Las 78 cartas. Haz clic en cualquier carta para abrir su manual completo.</p>
-    <div class="gallery-filters">
-      <button class="filter-btn active" data-filter="all">Todas</button>
-      <button class="filter-btn" data-filter="major">Arcanos Mayores</button>
-      <button class="filter-btn" data-filter="bastos">Bastos</button>
-      <button class="filter-btn" data-filter="copas">Copas</button>
-      <button class="filter-btn" data-filter="espadas">Espadas</button>
-      <button class="filter-btn" data-filter="oros">Oros</button>
+    <h2>Galería del Mazo Completo</h2>
+    <p class="lead">Las 78 cartas del universo de Remedios Varo. Haz clic en cualquier carta para abrir su ficha analítica completa.</p>
+
+    <div class="gallery-toolbar">
+      <div class="search-wrapper">
+        <span class="search-icon">🔍</span>
+        <input type="search" id="gallery-search" class="input-search" placeholder="Buscar por carta, pintura, año o palabra clave...">
+      </div>
+
+      <div class="gallery-filters-row">
+        <div class="gallery-filters">
+          <button class="filter-btn active" data-filter="all">Todas</button>
+          <button class="filter-btn" data-filter="major">Arcanos Mayores</button>
+          <button class="filter-btn" data-filter="bastos">🪄 Bastos (Fuego)</button>
+          <button class="filter-btn" data-filter="copas">🍷 Copas (Agua)</button>
+          <button class="filter-btn" data-filter="espadas">🗡️ Espadas (Aire)</button>
+          <button class="filter-btn" data-filter="oros">🪙 Oros (Tierra)</button>
+        </div>
+        <span id="gallery-count-badge" class="gallery-count-badge">Mostrando 78 de 78 cartas</span>
+      </div>
     </div>
+
     <div id="gallery-grid" class="gallery-grid"></div>
   </section>
 
-  <!-- ============ VISTA MANUAL ============ -->
+  <!-- ============ VISTA 4: MANUAL ============ -->
   <section id="view-manual" class="view">
-    <h2>Manual explicativo completo</h2>
-    <p class="lead">Setenta y ocho miniaturas esotéricas. Índice general, después cada carta con su pintura, simbolismo, significados e interpretaciones.</p>
+    <h2>Códice Alquímico Completo</h2>
+    <p class="lead">Manual exhaustivo de las 78 cartas con sus respectivas pinturas de referencia, escena, correspondencias simbólicas, polaridades e instrucciones prácticas.</p>
     <div id="manual-index" class="manual-index"></div>
     <div id="manual-content"></div>
   </section>
 
+  <!-- ============ VISTA 5: GRIMORIO (HISTORIAL) ============ -->
+  <section id="view-journal" class="view">
+    <h2>Mi Grimorio de Consultas</h2>
+    <p class="lead">Registro personal de tus tiradas anteriores almacenadas en la memoria local de tu navegador.</p>
+    <div id="journal-list" class="journal-list"></div>
+  </section>
+
 </main>
 
-<!-- ============ MODAL DE CARTA ============ -->
-<div id="card-modal" class="modal" aria-hidden="true">
+<!-- ============ MODAL DE INSPECCIÓN DE CARTA ============ -->
+<div id="card-modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
   <div class="modal-backdrop" data-close="modal"></div>
   <div class="modal-panel">
-    <button class="modal-close" data-close="modal" aria-label="Cerrar">&times;</button>
+    <button class="modal-close" data-close="modal" aria-label="Cerrar ventana">&times;</button>
     <div id="modal-body"></div>
   </div>
 </div>
 
 <footer class="site-footer">
   <div class="container">
-    <p>Tarot Remedios Varo — homenaje artístico y educativo. Las pinturas de Remedios Varo (1908–1963) pertenecen a sus herederos y coleccionistas; este proyecto las referencia sin reproducirlas, ofreciendo descripciones textuales e ilustraciones simbólicas originales.</p>
-    <p class="footer-small">Las cartas aquí expuestas no reproducen las obras originales por respeto a los derechos de autor.</p>
+    <p>
+      <strong>Tarot Remedios Varo</strong> — homenaje artístico, filosófico y educativo.<br>
+      Las pinturas de Remedios Varo (1908–1963) pertenecen a sus respectivos herederos, fundaciones y coleccionistas; este proyecto las referencia con respeto a los derechos de autor ofreciendo interpretaciones literarias y simbólicas originales.
+    </p>
+    <p class="footer-small">Desarrollado con estándares web abiertos (Web Audio API, SVG, CSS 3D). Parte de la colección <em>Esoteria Literaria</em> de la Biblioteca Splay.</p>
   </div>
 </footer>
 
+<!-- Scripts del Proyecto en orden de dependencia -->
+<script src="js/varo-art.js"></script>
+<script src="js/audio-engine.js"></script>
 <script src="js/data.js"></script>
 <script src="js/cards-major.js"></script>
 <script src="js/cards-minor.js"></script>
