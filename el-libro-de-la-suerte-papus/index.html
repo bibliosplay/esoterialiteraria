@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Libro de la Suerte de Papus | Juego Interactivo Esotérico</title>
+  <meta name="description" content="Videojuego web interactivo de adivinación, quiromancia y reducción teosófica basado en la obra del Dr. Gérard Encausse (Papus).">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔮</text></svg>">
+</head>
+<body>
+  <!-- Canvas de fondo para partículas y geometría sagrada -->
+  <canvas id="cosmic-canvas"></canvas>
+
+  <div class="app-container">
+    <!-- Header & Barra Superior -->
+    <header class="header-bar">
+      <div class="header-top">
+        <div class="heritage-seal">
+          <span class="seal-icon">✡️</span>
+          <span>Tradición Martinista de París • 1890</span>
+        </div>
+
+        <!-- Controles de Audio -->
+        <div class="audio-controls">
+          <button id="mute-btn" class="audio-btn active" title="Silenciar / Activar Sonido">
+            🔔 <span class="audio-label">Sonido</span>
+          </button>
+          <button id="drone-btn" class="audio-btn" title="Activar Drone Meditativo de 108Hz">
+            🌀 <span class="audio-label">Música Astral</span>
+          </button>
+          <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.05" value="0.45" title="Volumen General">
+        </div>
+      </div>
+
+      <h1 class="main-title">El Libro de la Suerte</h1>
+      <h2 class="subtitle">Buena o Mala Fortuna • Dr. Gérard Encausse (Papus)</h2>
+      <p class="epigraph">
+        «La suerte no es un azar ciego: es el resultado de la armonía entre la voluntad del hombre y las corrientes invisibles del Universo.»
+      </p>
+    </header>
+
+    <!-- Navegación por Pestañas (Modos de Juego) -->
+    <nav class="nav-tabs" role="tablist">
+      <button class="tab-btn active" data-tab="tab-oracle" role="tab">
+        <span class="tab-icon">🔮</span>
+        <span>El Oráculo del Zodíaco</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-numerology" role="tab">
+        <span class="tab-icon">🔢</span>
+        <span>Reducción Teosófica</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-palmistry" role="tab">
+        <span class="tab-icon">🖐️</span>
+        <span>La Mano del Destino</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-ritual" role="tab">
+        <span class="tab-icon">🕯️</span>
+        <span>Rito de Transmutación</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-codex" role="tab">
+        <span class="tab-icon">📜</span>
+        <span>Códice & Diario</span>
+      </button>
+    </nav>
+
+    <!-- ====================================================================
+         MÓDULO 1: EL ORÁCULO DEL ZODÍACO DOBLE
+         ==================================================================== -->
+    <section id="tab-oracle" class="tab-content active">
+      <div class="oracle-layout">
+        <!-- Panel de la Rueda Giratoria -->
+        <div class="oracle-wheel-pane">
+          <div class="wheel-wrapper">
+            <div class="wheel-pointer"></div>
+            <canvas id="zodiac-wheel-canvas"></canvas>
+            <div class="wheel-center-seal">✡</div>
+          </div>
+          <button id="spin-oracle-btn" class="ritual-action-btn">
+            ✨ Consultar al Oráculo de Papus
+          </button>
+          <p style="font-size: 14px; color: var(--text-dim); margin-top: 14px; text-align: center;">
+            Haz girar el Doble Zodíaco para conectar con las corrientes planetarias propicias.
+          </p>
+        </div>
+
+        <!-- Panel de Preguntas y Veredicto -->
+        <div class="oracle-query-pane">
+          <div class="panel-card">
+            <h3><span>🧭</span> Selecciona la Esfera de Consulta</h3>
+            <div id="category-selectors" class="category-selector">
+              <!-- Inyectado por JS -->
+            </div>
+
+            <h3 style="margin-top: 15px;"><span>❓</span> Formula tu Pregunta</h3>
+            <div id="oracle-questions-list" class="questions-list">
+              <!-- Inyectado por JS -->
+            </div>
+          </div>
+
+          <!-- Caja de Veredicto Revelado -->
+          <div id="oracle-verdict-box" class="verdict-box">
+            <!-- Inyectado al girar la rueda -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         MÓDULO 2: NUMEROLOGÍA Y REDUCCIÓN TEOSÓFICA
+         ==================================================================== -->
+    <section id="tab-numerology" class="tab-content">
+      <div class="numerology-layout">
+        <div class="panel-card">
+          <h3><span>🔢</span> Los Cálculos Cabalísticos de Papus</h3>
+          <p style="font-size: 16px; color: var(--text-muted); margin-bottom: 20px;">
+            Papus descompone la fecha de nacimiento y los nombres mediante la <em>reducción teosófica</em> para sintonizar con la vibración rectora del alma y sus días críticos o de mayor fortuna.
+          </p>
+
+          <div class="form-group">
+            <label for="theo-name">Nombre Completo del Consultante</label>
+            <input type="text" id="theo-name" class="input-theosophic" placeholder="Ej. Louis Claude de Saint-Martin" value="Gérard Encausse">
+          </div>
+
+          <div class="form-group">
+            <label for="theo-birthdate">Fecha de Nacimiento</label>
+            <input type="date" id="theo-birthdate" class="input-theosophic" value="1865-07-13">
+          </div>
+
+          <button id="calc-theosophic-btn" class="ritual-action-btn" style="width: 100%; justify-content: center; margin-top: 10px;">
+            ✨ Revelar Claves del Destino
+          </button>
+        </div>
+
+        <div id="numerology-results">
+          <div class="panel-card" style="text-align: center; padding: 40px 20px;">
+            <div style="font-size: 50px; margin-bottom: 12px;">⚖️</div>
+            <h4 style="font-family: var(--font-heading); color: var(--gold-light); font-size: 20px; margin-bottom: 10px;">
+              El Telar de los Números Sagrados
+            </h4>
+            <p style="color: var(--text-muted); max-width: 420px; margin: 0 auto;">
+              Introduce tus datos en el formulario para calcular tu Número del Destino, regente planetario, tus números del azar y el ciclo de mareas cósmicas.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gráfico de Biorritmo Astral -->
+      <div class="panel-card luck-biorhythm-card">
+        <h3><span>📈</span> Marea Astral de la Fortuna (Ciclo Mensual de 30 Días)</h3>
+        <p style="font-size: 15px; color: var(--text-muted); margin-bottom: 12px;">
+          Curva oscilatoria de atracción providencial calculada con la semilla de tu Número de Destino. Los picos altos señalan momentos propicios para inversiones, firmas y juegos; los valles indican repliegue y prudencia.
+        </p>
+        <canvas id="biorhythm-canvas"></canvas>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         MÓDULO 3: QUIROMANCIA ESOTÉRICA INTERACTIVA
+         ==================================================================== -->
+    <section id="tab-palmistry" class="tab-content">
+      <div class="palmistry-layout">
+        <!-- SVG Interactivo de la Mano de Fátima / Papus -->
+        <div class="palm-interactive-box">
+          <h3 style="font-family: var(--font-heading); color: var(--gold-light); font-size: 20px; text-align: center;">
+            🖐️ La Mano Planetaria de Papus
+          </h3>
+          <p style="font-size: 14px; color: var(--text-muted); text-align: center; margin-bottom: 10px;">
+            Haz clic en los <strong>montes dorados</strong> o en las <strong>líneas rojas</strong> para diagnosticar tu suerte.
+          </p>
+
+          <div class="hand-svg-container">
+            <svg viewBox="0 0 400 520" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto;">
+              <!-- Contorno estilizado de la mano esotérica -->
+              <path d="M120 480 C100 450, 70 360, 70 270 C70 230, 80 180, 85 140 C88 115, 115 115, 118 140 C122 170, 125 210, 128 210 C130 180, 140 90, 145 60 C148 35, 175 35, 178 60 C182 100, 185 200, 188 200 C190 180, 202 80, 208 50 C212 25, 238 25, 242 50 C246 100, 248 200, 252 205 C255 185, 270 120, 275 100 C279 80, 302 80, 305 100 C310 145, 312 220, 312 280 C312 360, 290 450, 270 480 Z" 
+                    fill="rgba(32, 18, 54, 0.7)" stroke="#d4af37" stroke-width="2.5" />
+
+              <!-- Pulgar -->
+              <path d="M75 340 C45 320, 20 280, 35 250 C48 225, 75 250, 95 285 Z"
+                    fill="rgba(32, 18, 54, 0.7)" stroke="#d4af37" stroke-width="2.5" />
+
+              <!-- 7 MONTES PLANETARIOS (Hotspots interactivos) -->
+              <!-- Júpiter (Bajo Índice) -->
+              <circle class="mount-hotspot active" data-mount="jupiter" cx="126" cy="225" r="20" />
+              <text x="126" y="229" font-size="12" fill="#fff" text-anchor="middle" pointer-events="none">♃</text>
+
+              <!-- Saturno (Bajo Cordial) -->
+              <circle class="mount-hotspot" data-mount="saturno" cx="184" cy="215" r="20" />
+              <text x="184" y="219" font-size="12" fill="#fff" text-anchor="middle" pointer-events="none">♄</text>
+
+              <!-- Apolo / Sol (Bajo Anular) -->
+              <circle class="mount-hotspot" data-mount="apolo" cx="244" cy="220" r="20" />
+              <text x="244" y="224" font-size="12" fill="#fff" text-anchor="middle" pointer-events="none">☉</text>
+
+              <!-- Mercurio (Bajo Meñique) -->
+              <circle class="mount-hotspot" data-mount="mercurio" cx="295" cy="250" r="18" />
+              <text x="295" y="254" font-size="12" fill="#fff" text-anchor="middle" pointer-events="none">☿</text>
+
+              <!-- Marte -->
+              <circle class="mount-hotspot" data-mount="marte" cx="290" cy="325" r="20" />
+              <text x="290" y="329" font-size="12" fill="#fff" text-anchor="middle" pointer-events="none">♂</text>
+
+              <!-- Luna -->
+              <circle class="mount-hotspot" data-mount="luna" cx="270" cy="415" r="24" />
+              <text x="270" y="420" font-size="14" fill="#fff" text-anchor="middle" pointer-events="none">☽</text>
+
+              <!-- Venus (Raíz del pulgar) -->
+              <circle class="mount-hotspot" data-mount="venus" cx="115" cy="370" r="28" />
+              <text x="115" y="375" font-size="16" fill="#fff" text-anchor="middle" pointer-events="none">♀</text>
+
+              <!-- 4 LÍNEAS MAESTRAS INTERACTIVAS -->
+              <!-- Línea del Destino / Saturno (Vertical hacia el medio) -->
+              <path class="palm-line-path" data-line="destino" d="M195 460 Q 185 340 184 240" />
+
+              <!-- Línea de la Vida (Rodeando Monte de Venus) -->
+              <path class="palm-line-path" data-line="vida" d="M115 255 C 95 300, 95 380, 155 460" />
+
+              <!-- Línea de la Cabeza (Mercuriana) -->
+              <path class="palm-line-path" data-line="cabeza" d="M115 260 Q 190 300 280 330" />
+
+              <!-- Línea de Apolo / Sol (Fama) -->
+              <path class="palm-line-path" data-line="sol_apolo" d="M245 420 Q 244 330 244 245" stroke-dasharray="4,2" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Panel de Diagnóstico Quiromántico -->
+        <div class="palm-details-pane">
+          <div class="panel-card">
+            <h3><span>📜</span> Diagnóstico Quiromántico de Papus</h3>
+            <div id="palm-diagnosis-content">
+              <span class="verdict-badge badge-menor">Planeta: Júpiter</span>
+              <h4 style="font-family: var(--font-display); color: var(--gold-light); font-size: 22px; margin: 10px 0 4px;">
+                Monte de Júpiter
+              </h4>
+              <p style="font-size: 15px; color: var(--text-muted); margin-bottom: 14px;">Ubicación: En la base del dedo Índice</p>
+              <h5 style="font-family: var(--font-heading); color: var(--gold-light); font-size: 15px; margin-bottom: 8px;">
+                Diagnóstico según su desarrollo:
+              </h5>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <div style="background: rgba(0,0,0,0.3); padding: 10px 14px; border-radius: 8px; border-left: 3px solid var(--gold-primary);">
+                  <strong style="color: var(--gold-light);">Prominente:</strong> Ambición noble, autoridad natural, inclinación al mando, fortuna en la madurez y protección providencial en pleitos.
+                </div>
+                <div style="background: rgba(0,0,0,0.3); padding: 10px 14px; border-radius: 8px; border-left: 3px solid var(--gold-primary);">
+                  <strong style="color: var(--gold-light);">Normal:</strong> Sentido del honor, respeto a las leyes, sociabilidad sana y estabilidad.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- La Prueba Clave de Papus: Dedo Índice vs Anular -->
+          <div class="panel-card">
+            <h3><span>⚖️</span> La Prueba Clave de Papus: Los Dedos</h3>
+            <p style="font-size: 15px; color: var(--text-muted); margin-bottom: 12px;">
+              Extiende tu mano sobre una mesa plana y compara la longitud de tu dedo <strong>Índice (Júpiter)</strong> con tu <strong>Anular (Apolo)</strong>:
+            </p>
+
+            <div class="finger-test-option" data-finger="anular_mas_largo">
+              <strong>👑 El Anular (Apolo) es más largo que el Índice</strong>
+              <div style="font-size: 13px; color: var(--text-muted);">Signo clásico de Papus para la intuición en el azar, arte y especulaciones.</div>
+            </div>
+
+            <div class="finger-test-option" data-finger="indice_mas_largo">
+              <strong>⚔️ El Índice (Júpiter) es más largo que el Anular</strong>
+              <div style="font-size: 13px; color: var(--text-muted);">Signo de autoridad, gobierno, éxito en empresas dirigidas con voluntad propia.</div>
+            </div>
+
+            <div class="finger-test-option" data-finger="iguales">
+              <strong>⚖️ Ambos dedos tienen exactamente la misma longitud</strong>
+              <div style="font-size: 13px; color: var(--text-muted);">El Raro Equilibrio Hermético entre intuición y gobierno práctico.</div>
+            </div>
+
+            <div id="finger-prognosis-result"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         MÓDULO 4: EL RITO DE TRANSMUTACIÓN (HACER VOLVER LA SUERTE PERDIDA)
+         ==================================================================== -->
+    <section id="tab-ritual" class="tab-content">
+      <div class="transmutation-layout">
+        <!-- Barra de Pasos del Ritual -->
+        <div class="ritual-steps-bar">
+          <div class="step-node active" id="step-1-node">I</div>
+          <div class="step-node" id="step-2-node">II</div>
+          <div class="step-node" id="step-3-node">III</div>
+        </div>
+
+        <!-- Fase 1: Disolución de Fugas Astrales -->
+        <div id="ritual-phase-1" class="ritual-phase active panel-card">
+          <h3 style="text-align: center;"><span>🕯️</span> Fase I: Purificación de las Cuatro Fugas Astrales</h3>
+          <p style="text-align: center; color: var(--text-muted); max-width: 680px; margin: 0 auto 20px;">
+            Papus enseña que la 'mala racha' no es fatalidad externa, sino un drenaje de energía psíquica en el plano astral. Haz clic en cada fuga para pronunciar la fórmula martinista y romper el maleficio de la inercia.
+          </p>
+
+          <div id="energy-leaks-container" class="energy-leaks-grid">
+            <!-- Inyectado por JS -->
+          </div>
+        </div>
+
+        <!-- Fase 2: Elección del Sello Planetario -->
+        <div id="ritual-phase-2" class="ritual-phase panel-card">
+          <h3 style="text-align: center;"><span>✡️</span> Fase II: Elección del Sello Astral de Papus</h3>
+          <p style="text-align: center; color: var(--text-muted); max-width: 680px; margin: 0 auto 20px;">
+            Selecciona la esfera planetaria que deseas imantar para revertir la corriente de infortunio en tu vida:
+          </p>
+
+          <div id="sigils-container" class="sigils-grid">
+            <!-- Inyectado por JS -->
+          </div>
+
+          <div style="text-align: center; margin-top: 25px;">
+            <button id="confirm-sigil-btn" class="ritual-action-btn">
+              ⚡ Consagrar Este Sello Planetario
+            </button>
+          </div>
+        </div>
+
+        <!-- Fase 3: Cámara de Carga de la Voluntad -->
+        <div id="ritual-phase-3" class="ritual-phase panel-card">
+          <div class="charging-chamber">
+            <h3 style="margin-bottom: 6px;"><span>⚡</span> Fase III: Impronta de la Voluntad en el Talismán</h3>
+            <p style="color: var(--text-muted); max-width: 600px; margin-bottom: 20px;">
+              Mantén presionado el círculo central con el cursor o el dedo para condensar la corriente del plano astral hasta alcanzar el 100%.
+            </p>
+
+            <div class="progress-track">
+              <div id="charge-progress-fill" class="progress-fill"></div>
+            </div>
+
+            <button id="hold-charge-btn" class="hold-charge-btn">
+              <span style="font-size: 26px;">🔯</span>
+              <span>Mantener</span>
+            </button>
+
+            <!-- Talismán Consagrado Final -->
+            <div id="consecrated-talisman-box" class="consecrated-talisman-box" style="display: none; width: 100%; max-width: 650px;">
+              <!-- Inyectado al completar el 100% -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         MÓDULO 5: CÓDICE HERMÉTICO & DIARIO DE ORÁCULOS
+         ==================================================================== -->
+    <section id="tab-codex" class="tab-content">
+      <div class="codex-layout">
+        <!-- Historia y Filosofía de Papus -->
+        <div class="panel-card">
+          <h3><span>📖</span> La Doctrina de la Suerte de Papus</h3>
+          <p style="font-size: 17px; margin-bottom: 12px;">
+            El <strong>Dr. Gérard Encausse (1865-1916)</strong>, célebre médico y cabalista francés bajo el seudónimo de <strong>Papus</strong>, revolucionó el ocultismo europeo al demostrar que las artes adivinatorias tradicionales no eran supersticiones arbitrarias, sino aplicaciones rigurosas de la psicología profunda y la astrología matemática.
+          </p>
+
+          <h4 style="font-family: var(--font-heading); color: var(--gold-light); font-size: 16px; margin: 18px 0 8px;">
+            Las Tres Leyes Herméticas de la Fortuna:
+          </h4>
+          <ul style="padding-left: 20px; font-size: 16px; color: var(--text-muted); display: flex; flex-direction: column; gap: 8px;">
+            <li><strong>1. Ley de Afinidad Vibratoria:</strong> El miedo atrae la pérdida; la serenidad generosa atrae el oro y el favor ajeno.</li>
+            <li><strong>2. Ley de la Hora Oportuna:</strong> Actuar en la hora del planeta regente multiplica por diez la eficacia de cualquier negocio.</li>
+            <li><strong>3. Ley de la Transmutación Moral:</strong> Quien se niega a rumiar el fracaso transmuta el infortunio en abono de su próxima victoria.</li>
+          </ul>
+
+          <blockquote class="verdict-quote" style="margin-top: 20px;">
+            «El sabio gobierna las estrellas; el insensato es arrastrado por ellas.»
+          </blockquote>
+        </div>
+
+        <!-- Diario / Grimorio de Consultas -->
+        <div class="panel-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <h3><span>📜</span> Grimorio Personal de Consultas</h3>
+            <button id="clear-journal-btn" class="audio-btn" style="font-size: 12px;">
+              🗑️ Vaciar Diario
+            </button>
+          </div>
+
+          <div id="journal-entries-list" class="journal-list">
+            <!-- Inyectado por JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer Ocultista -->
+    <footer class="footer-bar">
+      <div class="footer-seal">❖ S · I · B · C · M ❖</div>
+      <p>Inspirado en la obra inmortal de Papus: <em>El libro de la suerte: buena o mala fortuna</em>.</p>
+      <p style="font-size: 13px; margin-top: 4px;">Desarrollado para estudio esotérico, filosofía práctica y entretenimiento reflexivo.</p>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="data.js"></script>
+  <script src="audio.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

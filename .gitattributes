@@ -1,0 +1,21 @@
+# Manejo automático de fines de línea
+* text=auto eol=lf
+
+# Archivos de texto específicos
+*.html text eol=lf
+*.css  text eol=lf
+*.js   text eol=lf
+*.json text eol=lf
+*.md   text eol=lf
+*.py   text eol=lf
+*.bat  text eol=crlf
+
+# Archivos binarios
+*.jpg   binary
+*.jpeg  binary
+*.png   binary
+*.gif   binary
+*.ico   binary
+*.svg   text eol=lf
+*.woff  binary
+*.woff2 binary

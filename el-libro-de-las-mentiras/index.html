@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIBER CCCXXXIII • El Libro de las Mentiras (Juego Interactivo)</title>
+    <meta name="description" content="Juego esotérico e interactivo basado en El libro de las mentiras (Liber 333) de Aleister Crowley. Desafíos de paradojas, rituales thelémicos y oráculo.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👁️</text></svg>">
+</head>
+<body>
+    <!-- Canvas de Geometría Sagrada Animada en Segundo Plano -->
+    <canvas id="sacred-geometry-canvas"></canvas>
+
+    <!-- Controles Flotantes de Audio Procedural -->
+    <div class="audio-controls">
+        <button id="btn-toggle-drone" class="audio-btn" title="Activar/Desactivar drone ceremonial">
+            📿 Iniciar Canto Ritual
+        </button>
+        <button id="btn-toggle-mute" class="audio-btn" title="Silenciar / Activar sonido">
+            🔊 Sonido
+        </button>
+    </div>
+
+    <!-- Contenedor Principal de la Aplicación -->
+    <div class="app-container">
+        <!-- Encabezado Hermético -->
+        <header class="app-header">
+            <div class="sigil-banner">∴ 🜂 🜄 🜁 🜃 ∴</div>
+            <h1 class="main-title">El Libro de las Mentiras</h1>
+            <div class="sub-title">LIBER CCCXXXIII • ALEISTER CROWLEY (FRATER PERDURABO)</div>
+            <div class="quote-banner">
+                «Una mentira que dice la verdad; una verdad que oculta una mentira. Aquel que tenga oídos para oír, que ría.»
+            </div>
+        </header>
+
+        <!-- Medidores Alquímicos del Aspirante -->
+        <section class="alchemy-meters">
+            <div class="meter-box">
+                <div class="meter-header">
+                    <span class="meter-label-ego">⛓️ CERTEZA DOGMÁTICA (EGO):</span>
+                    <span id="val-ego">100%</span>
+                </div>
+                <div class="meter-track">
+                    <div class="meter-fill-ego" id="meter-ego"></div>
+                </div>
+            </div>
+            <div class="meter-box">
+                <div class="meter-header">
+                    <span class="meter-label-gnosis">✨ GNOSIS DEL SILENCIO (0=2):</span>
+                    <span id="val-gnosis">0%</span>
+                </div>
+                <div class="meter-track">
+                    <div class="meter-fill-gnosis" id="meter-gnosis"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navegación de Modos -->
+        <nav class="mode-nav">
+            <button class="nav-btn active" data-view="initiation">
+                ⚡ La Iniciación (7 Portales)
+            </button>
+            <button class="nav-btn" data-view="oracle">
+                🔮 El Oráculo de las 93 Mentiras
+            </button>
+            <button class="nav-btn" data-view="choronzon">
+                👁️ La Cripta de Choronzon (Duelo)
+            </button>
+            <button class="nav-btn" data-view="lore">
+                📖 El Grimorio de Crowley
+            </button>
+        </nav>
+
+        <!-- VISTA 1: LA INICIACIÓN DE LOS 7 PORTALES -->
+        <main id="view-initiation" class="view-section active">
+            <div id="portal-container">
+                <!-- Se inyecta dinámicamente desde game.js -->
+            </div>
+        </main>
+
+        <!-- VISTA 2: EL ORÁCULO DE LAS 93 MENTIRAS -->
+        <section id="view-oracle" class="view-section">
+            <div class="oracle-controls">
+                <button class="oracle-btn" id="btn-draw-one">🎴 Tirada Diaria (1 Paradoja)</button>
+                <button class="oracle-btn" id="btn-draw-three">🔺 Tirada Alquímica (3 Cartas: Tesis, Antítesis, Síntesis)</button>
+                <button class="oracle-btn" id="btn-show-all">📜 Revelar Todo el Mazo</button>
+            </div>
+            <div class="oracle-cards-grid" id="oracle-cards-container">
+                <!-- Se inyectan las cartas dinámicamente -->
+            </div>
+        </section>
+
+        <!-- VISTA 3: LA CRIPTA DE CHORONZON -->
+        <section id="view-choronzon" class="view-section">
+            <div style="text-align: center; margin-bottom: 25px;">
+                <h2 style="font-family: var(--font-heading); color: var(--gold-light); font-size: 26px;">
+                    EL DESAFÍO DE CHORONZON (EL DEMONIO 333)
+                </h2>
+                <p style="color: var(--text-muted); font-size: 18px; max-width: 700px; margin: 8px auto;">
+                    Choronzon es el demonio de la dispersión, la cháchara interminable y las falsas contradicciones. 
+                    Desarticula sus trampas reconociendo la risa y la síntesis oculta.
+                </p>
+            </div>
+            <div id="choronzon-arena-container">
+                <!-- Se inyecta la arena de combate dialéctico -->
+            </div>
+        </section>
+
+        <!-- VISTA 4: EL CÓDICE / HISTORIA DE LIBER 333 -->
+        <section id="view-lore" class="view-section">
+            <article class="lore-section">
+                <h2>El Enigma de Liber CCCXXXIII: ¿Qué es "El Libro de las Mentiras"?</h2>
+                <p>
+                    Publicado en 1913 por <span class="lore-highlight">Aleister Crowley (Frater Perdurabo)</span>, 
+                    <strong>El Libro de las Mentiras</strong> (subtitulado irónicamente como <em>RUPTURAS</em>) 
+                    consta originalmente de 91 o 93 capítulos breves, llenos de poesía mística, acertijos cabalísticos, 
+                    humor vitriólico, dobles sentidos y rituales fundamentales de Thelema (como el <em>Rubí Estrella</em>, 
+                    el <em>Zafiro Estrella</em> y la <em>Misa del Fénix</em>).
+                </p>
+                <p>
+                    El título no es una broma superficial: responde a una profunda doctrina mística de la cábala hermética. 
+                    Para Crowley, cualquier verdad que pueda ser expresada mediante el lenguaje finito y la razón humana 
+                    es forzosamente parcial y limitada, y por tanto, <span class="lore-highlight">es una mentira en relación con el Absoluto</span>. 
+                    La única forma de sugerir la Verdad Absoluta es mediante la <em>paradoja</em> y el absurdo sagrado.
+                </p>
+
+                <h2>Los Números Sagrados de Liber 333</h2>
+                <ul style="list-style: square; padding-left: 25px; margin-bottom: 20px; font-size: 18px; color: #ded6c8;">
+                    <li><strong>333</strong>: El número de <span class="lore-highlight">Choronzon</span>, el archidemonio del Abismo que personifica la dispersión del intelecto, la confusión de las palabras y la ilusión de la multiplicidad no unificada.</li>
+                    <li><strong>93</strong>: El número santo de Thelema (<em>Voluntad</em>) y Agape (<em>Amor</em> en griego). Crowley usó esta cifra como clave de síntesis y saludo magístico.</li>
+                    <li><strong>418</strong>: El valor numérico de <span class="lore-highlight">ABRAHADABRA</span>, la palabra mágica del Nuevo Eón que reconcilia el pentagrama (el hombre) y el hexagrama (el macrocosmos).</li>
+                    <li><strong>0 = 2</strong>: La ecuación suprema del Libro de las Mentiras. La Creación no es más que el Cero Divino (Nuit) dividiéndose en dos opuestos complementarios (+1 y -1) para experimentar el gozo del amor.</li>
+                </ul>
+
+                <h2>Instrucciones para el Jugador</h2>
+                <p>
+                    En este juego web, tu objetivo <strong>no es acumular certezas dogmáticas</strong>. Al contrario: 
+                    comienzas con 100% de Ego y tu meta en los 7 Portales de la Iniciación es <em>disolver el ego dogmático</em> 
+                    hasta que tu Gnosis alcance el 100%. Solo desprendiéndote de la pedantería moral y lógica 
+                    podrás cruzar el Abismo y renacer como el <strong>Niño del Abismo</strong> ante la Presencia del Cero Primordial.
+                </p>
+            </article>
+        </section>
+
+        <!-- Pie de Página Hermético -->
+        <footer class="app-footer">
+            <p>LIBER CCCXXXIII • SUB FIGURA CCCXXXIII • DO WHAT THOU WILT SHALL BE THE WHOLE OF THE LAW</p>
+            <p style="font-size: 12px; margin-top: 6px; color: var(--gold-dark);">
+                Amor es la ley, amor bajo voluntad • 93 / 93
+            </p>
+        </footer>
+    </div>
+
+    <!-- Modal Detallado de Carta del Oráculo -->
+    <div class="card-modal-backdrop" id="card-modal">
+        <div class="card-modal-content">
+            <button class="modal-close-btn" id="card-modal-close">✕</button>
+            <div id="card-modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Scripts de la Aplicación -->
+    <script src="data.js"></script>
+    <script src="audio.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>

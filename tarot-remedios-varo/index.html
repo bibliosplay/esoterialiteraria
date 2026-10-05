@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tarot Remedios Varo · Juego Digital y Manual</title>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=EB+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+</head>
+<body data-biblio="varotarot">
+
+<script src="biblio-nav.js"></script>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <h1 class="brand">Tarot <span class="brand-accent">Remedios Varo</span></h1>
+    <p class="tagline">Un mazo surrealista inspirado en la obra de Remedios Varo · 78 cartas</p>
+    <nav class="main-nav" id="main-nav">
+      <button class="nav-btn active" data-view="view-home">Inicio</button>
+      <button class="nav-btn" data-view="view-reading">Lecturas</button>
+      <button class="nav-btn" data-view="view-gallery">Galería del mazo</button>
+      <button class="nav-btn" data-view="view-manual">Manual completo</button>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- ============ VISTA INICIO ============ -->
+  <section id="view-home" class="view view-active">
+    <div class="hero">
+      <div class="hero-art" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="gear gear-a"></div>
+        <div class="gear gear-b"></div>
+      </div>
+      <div class="hero-text">
+        <h2>La magia de lo esotérico, la precisión de la alquimia</h2>
+        <p>
+          Este tarot reinterpreta el imaginario surrealista de la pintora <strong>Remedios Varo Uranga
+          (1908–1963)</strong>: andróginos, tormentas mecánicas, tejedoras del cosmos, aves que nacen del pincel
+          y arquitecturas vegetales. Cada una de las <strong>78 cartas</strong> se asocia a una pintura de la artista
+          y funciona como un portal simbólico hacia su universo.
+        </p>
+        <p>
+          Remedios, fugitiva de la guerra, construyó un mundo donde la ciencia exacta se vuelve inútil poesía y
+          donde los relojes miden no el tiempo sino la revelación. Este juego digital explora esas ideas: <em>el
+          mazo es un laboratorio, la lectura un experimento.</em>
+        </p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" data-go="reading">Hacer una lectura</button>
+          <button class="btn btn-secondary" data-go="gallery">Explorar el mazo</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-grid">
+      <article class="feature-card">
+        <h3>22 Arcanos Mayores</h3>
+        <p>Los grandes viajes del alma: de la torre de marfil a la huida, del alquimista a la cazadora de astros.</p>
+      </article>
+      <article class="feature-card">
+        <h3>56 Arcanos Menores</h3>
+        <p>Cuatro palos que siguen los oficios de Varo: bastos como llamas de creación, copas como aguas de emoción, espadas como cortes de claridad y oros como tejidos terrenales.</p>
+      </article>
+      <article class="feature-card">
+        <h3>Manual explicativo</h3>
+        <p>Cada carta incluye simbolismo, interpretación en posición recta e invertida, su pintura de referencia y un consejo práctico.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ VISTA LECTURAS ============ -->
+  <section id="view-reading" class="view">
+    <div class="reading-config">
+      <h2>Lecturas</h2>
+      <p class="lead">Elige el tipo de tirada. Las cartas se barajan y se extraen del mazo completo de 78.</p>
+      <div class="spread-options">
+        <button class="spread-btn" data-spread="one">Carta del día</button>
+        <button class="spread-btn" data-spread="three">Pasado · Presente · Futuro</button>
+        <button class="spread-btn" data-spread="celtic">Cruz celta</button>
+      </div>
+      <div id="spread-description" class="spread-description"></div>
+      <button id="btn-draw" class="btn btn-primary" disabled>Barajar y extraer</button>
+    </div>
+    <div id="reading-result" class="reading-result"></div>
+  </section>
+
+  <!-- ============ VISTA GALERÍA ============ -->
+  <section id="view-gallery" class="view">
+    <h2>Galería del mazo</h2>
+    <p class="lead">Las 78 cartas. Haz clic en cualquier carta para abrir su manual completo.</p>
+    <div class="gallery-filters">
+      <button class="filter-btn active" data-filter="all">Todas</button>
+      <button class="filter-btn" data-filter="major">Arcanos Mayores</button>
+      <button class="filter-btn" data-filter="bastos">Bastos</button>
+      <button class="filter-btn" data-filter="copas">Copas</button>
+      <button class="filter-btn" data-filter="espadas">Espadas</button>
+      <button class="filter-btn" data-filter="oros">Oros</button>
+    </div>
+    <div id="gallery-grid" class="gallery-grid"></div>
+  </section>
+
+  <!-- ============ VISTA MANUAL ============ -->
+  <section id="view-manual" class="view">
+    <h2>Manual explicativo completo</h2>
+    <p class="lead">Setenta y ocho miniaturas esotéricas. Índice general, después cada carta con su pintura, simbolismo, significados e interpretaciones.</p>
+    <div id="manual-index" class="manual-index"></div>
+    <div id="manual-content"></div>
+  </section>
+
+</main>
+
+<!-- ============ MODAL DE CARTA ============ -->
+<div id="card-modal" class="modal" aria-hidden="true">
+  <div class="modal-backdrop" data-close="modal"></div>
+  <div class="modal-panel">
+    <button class="modal-close" data-close="modal" aria-label="Cerrar">&times;</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>Tarot Remedios Varo — homenaje artístico y educativo. Las pinturas de Remedios Varo (1908–1963) pertenecen a sus herederos y coleccionistas; este proyecto las referencia sin reproducirlas, ofreciendo descripciones textuales e ilustraciones simbólicas originales.</p>
+    <p class="footer-small">Las cartas aquí expuestas no reproducen las obras originales por respeto a los derechos de autor.</p>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/cards-major.js"></script>
+<script src="js/cards-minor.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

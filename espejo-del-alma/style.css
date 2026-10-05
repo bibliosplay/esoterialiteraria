@@ -1,0 +1,454 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cinzel:wght@500;600&display=swap');
+
+:root{
+  --noche: #14121c;
+  --noche-2: #1c1a28;
+  --pergamino: #ece2cb;
+  --pergamino-tenue: #cfc4a8;
+  --oro: #b9924f;
+  --oro-brillo: #d9b877;
+  --granate: #6f2a3a;
+  --violeta: #5b4a7a;
+  --linea: rgba(185,146,79,0.28);
+  --sombra-color: rgba(0,0,0,0.55);
+  --radio: 3px;
+}
+
+*{ box-sizing: border-box; }
+
+html{ scroll-behavior: smooth; }
+
+body{
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 20% -10%, rgba(91,74,122,0.35), transparent 55%),
+    radial-gradient(ellipse at 85% 10%, rgba(111,42,58,0.28), transparent 50%),
+    var(--noche);
+  color: var(--pergamino);
+  font-family: 'EB Garamond', serif;
+  font-size: 17px;
+  line-height: 1.55;
+  padding: 0 0 6rem;
+}
+
+.velo{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(236,226,203,0.05) 1px, transparent 1px);
+  background-size: 3px 3px;
+  opacity: .35;
+  z-index: 0;
+}
+
+.envoltorio{
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 3rem 1.4rem 0;
+}
+
+/* ---------- Cabecera ---------- */
+header.cabecera{
+  text-align: center;
+  margin-bottom: 2.6rem;
+}
+
+.eyebrow{
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  color: var(--oro);
+  opacity: 0.85;
+}
+
+h1{
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: clamp(2.2rem, 6vw, 3rem);
+  margin: 0.4rem 0 0.3rem;
+  letter-spacing: 0.01em;
+}
+
+.subtitulo{
+  font-style: italic;
+  color: var(--pergamino-tenue);
+  font-size: 0.98rem;
+  max-width: 44ch;
+  margin: 0 auto;
+}
+
+.marca-circulo{
+  width: 46px;
+  height: 46px;
+  margin: 1.1rem auto 0;
+  border-radius: 50%;
+  border: 1px solid var(--linea);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cinzel', serif;
+  color: var(--oro-brillo);
+  font-size: 1.1rem;
+  position: relative;
+  animation: pulso 3s ease-in-out infinite;
+}
+.marca-circulo::before{
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border: 1px solid rgba(185,146,79,0.15);
+  border-radius: 50%;
+}
+
+@keyframes pulso{
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+}
+
+/* ---------- Secciones tipo "carta de estudio" ---------- */
+.panel{
+  background: linear-gradient(180deg, var(--noche-2), rgba(28,26,40,0.6));
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  padding: 1.6rem 1.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  animation: fadeSlideIn 0.4s ease-out both;
+}
+.panel::before{
+  content: '';
+  position: absolute;
+  top: 6px; left: 6px; right: 6px; bottom: 6px;
+  border: 1px solid rgba(185,146,79,0.10);
+  pointer-events: none;
+}
+
+@keyframes fadeSlideIn{
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.rotulo{
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--oro);
+  margin: 0 0 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+}
+.rotulo::after{
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--linea);
+}
+
+label.campo{
+  display: block;
+  font-size: 0.85rem;
+  color: var(--pergamino-tenue);
+  margin-bottom: 0.4rem;
+}
+
+textarea, select, input[type=text]{
+  width: 100%;
+  background: rgba(20,18,28,0.65);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  color: var(--pergamino);
+  font-family: 'EB Garamond', serif;
+  font-size: 1.02rem;
+  padding: 0.7rem 0.8rem;
+  resize: vertical;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+textarea:focus, select:focus, input:focus{
+  outline: 2px solid var(--oro-brillo);
+  outline-offset: 1px;
+  border-color: var(--oro-brillo);
+  box-shadow: 0 0 12px rgba(217,184,119,0.15);
+}
+
+textarea{ min-height: 78px; }
+
+/* ---------- Selector de tiradas ---------- */
+.tiradas{
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 0.9rem;
+}
+.tirada-opcion{
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  padding: 0.75rem 0.9rem;
+  cursor: pointer;
+  background: rgba(20,18,28,0.4);
+  transition: border-color .15s ease, background .15s ease, transform .15s ease;
+}
+.tirada-opcion:hover{ border-color: var(--oro); transform: translateX(3px); }
+.tirada-opcion.activa{
+  border-color: var(--oro-brillo);
+  background: rgba(185,146,79,0.09);
+}
+.tirada-opcion input{
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+.tirada-opcion input:focus-visible ~ .tirada-nombre{
+  outline: 2px solid var(--oro-brillo);
+  outline-offset: 3px;
+}
+.tirada-opcion{ position: relative; }
+.tirada-nombre{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--pergamino);
+}
+.tirada-desc{
+  font-size: 0.85rem;
+  color: var(--pergamino-tenue);
+  margin-top: 0.15rem;
+}
+
+/* ---------- Botón principal ---------- */
+.boton{
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, var(--oro-brillo), var(--oro));
+  color: #1c1305;
+  border: none;
+  border-radius: var(--radio);
+  padding: 0.85rem 1.4rem;
+  cursor: pointer;
+  width: 100%;
+  transition: transform .12s ease, filter .12s ease, box-shadow .12s ease;
+}
+.boton:hover{ filter: brightness(1.06); box-shadow: 0 4px 20px rgba(217,184,119,0.2); }
+.boton:active{ transform: scale(0.99); }
+.boton:disabled{ opacity: 0.5; cursor: progress; }
+
+.boton.secundario{
+  background: transparent;
+  border: 1px solid var(--oro);
+  color: var(--oro-brillo);
+}
+
+/* ---------- Acciones IA y compartir ---------- */
+.acciones-ia{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+
+.boton-compartir{
+  font-size: 0.72rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4em;
+}
+
+/* ---------- Cartas dispuestas ---------- */
+.mesa{
+  display: grid;
+  gap: 1.1rem;
+  margin-top: 1.2rem;
+}
+
+.carta-slot{
+  display: grid;
+  grid-template-columns: 84px 1fr;
+  gap: 1rem;
+  align-items: start;
+  border-bottom: 1px solid var(--linea);
+  padding-bottom: 1.1rem;
+  animation: cartaAparece 0.5s ease-out both;
+}
+.carta-slot:last-child{ border-bottom: none; padding-bottom: 0; }
+
+@keyframes cartaAparece{
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.carta-visual{
+  aspect-ratio: 5/8;
+  border-radius: 6px;
+  background: linear-gradient(160deg, #241f34, #16121f);
+  border: 1px solid var(--oro);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.carta-visual:hover{
+  transform: scale(1.03);
+  box-shadow: 0 8px 24px rgba(185,146,79,0.2);
+}
+.carta-visual.invertida{ transform: rotate(180deg); }
+.carta-visual.invertida:hover{ transform: rotate(180deg) scale(1.03); }
+.carta-visual::before{
+  content:'';
+  position:absolute; inset: 5px;
+  border: 1px solid rgba(185,146,79,0.35);
+  border-radius: 3px;
+}
+.carta-numero{
+  font-family: 'Cinzel', serif;
+  color: var(--oro-brillo);
+  font-size: 1.3rem;
+}
+.carta-icono{
+  font-size: 1.5rem;
+  margin-top: 0.2rem;
+  color: var(--pergamino);
+}
+
+.carta-info .posicion{
+  font-family: 'Cinzel', serif;
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--violeta);
+}
+.carta-info .posicion-sentido{
+  font-size: 0.82rem;
+  color: var(--pergamino-tenue);
+  font-style: italic;
+  margin: 0.15rem 0 0.5rem;
+}
+.carta-info h3{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  margin: 0 0 0.15rem;
+  font-weight: 600;
+}
+.carta-info h3 .orientacion{
+  font-size: 0.72rem;
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  color: var(--pergamino-tenue);
+  margin-left: 0.5em;
+}
+.arquetipo{
+  font-size: 0.86rem;
+  color: var(--oro-brillo);
+  margin-bottom: 0.5rem;
+}
+.palabras-clave{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.55rem;
+}
+.palabra{
+  font-size: 0.72rem;
+  border: 1px solid var(--linea);
+  border-radius: 20px;
+  padding: 0.15rem 0.65rem;
+  color: var(--pergamino-tenue);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.palabra:hover{
+  background: rgba(185,146,79,0.15);
+  color: var(--pergamino);
+}
+.significado{ font-size: 0.95rem; }
+
+/* ---------- Síntesis ---------- */
+.sintesis-texto{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  line-height: 1.6;
+}
+.sintesis-texto p{ margin: 0 0 0.9rem; }
+.sintesis-texto p:last-child{ margin-bottom: 0; }
+
+.respuesta-ia{
+  animation: fadeSlideIn 0.5s ease-out both;
+  margin-top: 0.5rem;
+}
+
+.estado-ia{
+  font-size: 0.85rem;
+  color: var(--pergamino-tenue);
+  font-style: italic;
+  margin-top: 0.6rem;
+}
+
+/* ---------- Historial ---------- */
+.panel-historial{
+  opacity: 0.85;
+}
+.historial-lista{
+  display: grid;
+  gap: 0.5rem;
+}
+.historial-item{
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(185,146,79,0.12);
+  font-size: 0.88rem;
+}
+.historial-item:last-child{ border-bottom: none; }
+.historial-fecha{
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--oro);
+  min-width: 60px;
+}
+.historial-cartas{
+  color: var(--pergamino-tenue);
+}
+
+/* ---------- Pie ---------- */
+footer{
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--pergamino-tenue);
+  opacity: 0.7;
+  margin-top: 2.5rem;
+  padding: 0 1rem;
+}
+
+@media (max-width: 480px){
+  .carta-slot{ grid-template-columns: 64px 1fr; gap: 0.7rem; }
+  .acciones-ia{ grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  .boton, .tirada-opcion, .carta-visual, .carta-slot, .panel, .respuesta-ia, .marca-circulo{ animation: none; transition: none; }
+}
+
+.oculto{ display: none !important; }
+
+.campo-tiradas{ border: none; }
+.campo-tiradas legend{ padding: 0; width: 100%; }
+
+.panel-resultado{ margin-top: 1.8rem; }
+.boton-ia{ margin-top: 1rem; }
+.boton-nueva{ margin-top: 1rem; }
+.rotulo-oraculo{ margin-top: 1.4rem; }

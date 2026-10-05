@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarot de las Criaturas de Hieronymus Bosch</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👁️</text></svg>">
+</head>
+<body>
+    <div class="app-container">
+        <!-- CABECERA PRINCIPAL -->
+        <header class="site-header">
+            <div class="brand-wrapper">
+                <img class="brand-logo" src="assets/cards/card_18.jpg" alt="Lechuza del Bosco" onerror="this.src='assets/cards/card_back.jpg';">
+                <div class="brand-title">
+                    <h1>TAROT DEL BOSCO</h1>
+                    <p>El Bestiario Sagrado & Visiones Arcanas</p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <!-- CONTROLES DE AUDIO PROCEDURAL -->
+                <div class="audio-bar" title="Música y Ambiente Gótico Medieval">
+                    <button class="btn-audio" id="btnMusicToggle" title="Iniciar Música Ambiente">🎵</button>
+                    <select class="mood-selector" id="moodSelector" title="Ambiente Sonoro">
+                        <option value="abbey">Abadía en Penumbra</option>
+                        <option value="hell">El Infierno Musical</option>
+                        <option value="eden">El Canto del Edén</option>
+                    </select>
+                    <button class="btn-audio" id="btnMuteToggle" title="Silenciar">🔊</button>
+                    <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.05" value="0.5" title="Volumen General">
+                </div>
+
+                <!-- NAVEGACIÓN -->
+                <nav class="nav-buttons">
+                    <button class="btn-nav active" id="btnNavTable">
+                        <span>🎴</span> Mesa de Tiradas
+                    </button>
+                    <button class="btn-nav" id="btnNavGallery">
+                        <span>🐉</span> Bestiario Completo
+                    </button>
+                    <button class="btn-nav" id="btnNavCodex">
+                        <span>📜</span> Códice (Manual)
+                    </button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- BARRA DE CONFIGURACIÓN DE TIRADAS -->
+        <section class="spread-selector-bar">
+            <div class="spread-options">
+                <button class="btn-spread" data-spread="single">
+                    <span class="spread-badge">1</span>
+                    <span>👁️ El Ojo de San Antonio</span>
+                </button>
+                <button class="btn-spread active" data-spread="triptych">
+                    <span class="spread-badge">3</span>
+                    <span>🖼️ El Tríptico de las Delicias</span>
+                </button>
+                <button class="btn-spread" data-spread="cross">
+                    <span class="spread-badge">5</span>
+                    <span>✝️ La Cruz Grotesca</span>
+                </button>
+            </div>
+
+            <div class="deck-controls">
+                <label class="toggle-switch" title="Permite que las cartas aparezcan invertidas con significados de sombra">
+                    <input type="checkbox" id="toggleReversed" checked>
+                    <span class="slider-track"></span>
+                    <span>Cartas Invertidas</span>
+                </label>
+
+                <button class="btn-action" id="btnShuffleDeal">
+                    <span>🔀</span> Barajar y Repartir
+                </button>
+                <button class="btn-action btn-secondary" id="btnRevealAll">
+                    <span>✨</span> Revelar Todas
+                </button>
+                <button class="btn-action btn-secondary" id="btnReset">
+                    <span>🔄</span> Nueva Consulta
+                </button>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 1: MESA DE LECTURA (EL TAPETE DE TERCIOPELO) -->
+        <main class="table-section" id="tableSection">
+            <div class="spread-info-header">
+                <h2 id="spreadTitle">El Tríptico de las Delicias</h2>
+                <p id="spreadSubtitle">Estructurada como las tres tablas maestras de El Bosco: el Edén Primordial, el Jardín de los Deseos y el Infierno Musical.</p>
+            </div>
+
+            <div class="spread-mat" id="spreadMat">
+                <!-- Los slots de las cartas 3D se insertan dinámicamente aquí -->
+            </div>
+        </main>
+
+        <!-- PANEL DE INTERPRETACIÓN DE LA TIRADA -->
+        <section class="reading-panel" id="readingPanel" style="display: none;">
+            <div class="reading-header">
+                <h3 class="reading-title">Revelación del Oráculo</h3>
+                <span style="font-size: 0.85rem; color: var(--gold-light);">Haz clic en cualquier carta para profundizar en su sabiduría</span>
+            </div>
+            
+            <div class="reading-cards-grid" id="readingGrid">
+                <!-- Desglose de cada carta revelada -->
+            </div>
+
+            <div class="reading-synthesis" id="readingSynthesis" style="display: none;">
+                <!-- Síntesis oracular global -->
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: GALERÍA DEL BESTIARIO (MAZO COMPLETO) -->
+        <section class="gallery-section" id="gallerySection">
+            <div class="gallery-header">
+                <div class="gallery-title">
+                    <h2>El Bestiario de Hieronymus Bosch</h2>
+                    <p>Colección completa de los 22 Arcanos Mayores. Haz clic en cualquiera para inspeccionar su historia y simbolismo.</p>
+                </div>
+
+                <div class="gallery-filters">
+                    <input type="text" class="gallery-search" id="gallerySearch" placeholder="Buscar criatura, arcano o palabra clave...">
+                    <div class="filter-btn-group">
+                        <button class="btn-filter active" data-filter="all">Todos (22)</button>
+                        <button class="btn-filter" data-filter="eden">El Edén</button>
+                        <button class="btn-filter" data-filter="delicias">Las Delicias</button>
+                        <button class="btn-filter" data-filter="infierno">El Infierno</button>
+                        <button class="btn-filter" data-filter="peregrinacion">Peregrinación</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Se pueblan las 22 cartas aquí -->
+            </div>
+        </section>
+
+        <!-- PIE DE PÁGINA -->
+        <footer class="site-footer">
+            <p>Tarot de las Criaturas de Hieronymus Bosch (El Bosco) · Obra en Dominio Público · Realizado con alquimia visual y Web Audio API</p>
+        </footer>
+    </div>
+
+    <!-- MODAL 1: INSPECTOR DETALLADO DE CARTA -->
+    <div class="modal-overlay" id="cardModal">
+        <div class="modal-content">
+            <button class="modal-close" id="cardModalClose" title="Cerrar">✕</button>
+            <div id="cardModalContent">
+                <!-- Detalle de la carta inyectado dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: MANUAL EXPLICATIVO (EL CÓDICE DEL BOSCO) -->
+    <div class="modal-overlay" id="codexModal">
+        <div class="modal-content codex-modal">
+            <button class="modal-close" id="codexModalClose" title="Cerrar">✕</button>
+            <h2 style="font-family: var(--font-heading); color: var(--gold-light); margin-bottom: 4px;">CÓDICE DEL TAROT DEL BOSCO</h2>
+            <p style="font-family: var(--font-sub); font-size: 0.85rem; color: var(--gold-dark); letter-spacing: 1.5px; margin-bottom: 20px;">MANUAL HERMÉTICO DE LAS TIRADAS Y EL BESTIARIO</p>
+
+            <div class="codex-grid">
+                <!-- ÍNDICE LATERAL -->
+                <aside class="codex-toc">
+                    <h3>Capítulos</h3>
+                    <ul class="codex-nav-list">
+                        <li class="codex-nav-item active" data-chapter="intro">I. El Universo del Bosco</li>
+                        <li class="codex-nav-item" data-chapter="spreads">II. Las 3 Tiradas Sagradas</li>
+                        <li class="codex-nav-item" data-chapter="reversed">III. Luz y Sombra (Invertidas)</li>
+                        <li class="codex-nav-item" data-chapter="realms">IV. Los Cuatro Reinos</li>
+                        <li class="codex-nav-item" data-chapter="ritual">V. Ritual de Consulta</li>
+                    </ul>
+                </aside>
+
+                <!-- ARTÍCULOS DEL MANUAL -->
+                <div class="codex-article">
+                    <!-- CAPÍTULO I -->
+                    <article class="codex-article-content" id="codex-intro">
+                        <h3>I. El Universo Simbólico de Hieronymus Bosch</h3>
+                        <p>Jheronimus van Aken (c. 1450 - 1516), conocido universalmente como <strong>El Bosco</strong> (Hieronymus Bosch), fue un maestro del Renacimiento flamenco cuyo pincel dio forma a los sueños, terrores morales y misterios alquímicos de la condición humana.</p>
+                        <p>Lejos de ser simples caprichos grotescos, las criaturas híbridas de sus lienzos —hombres-árbol, monarcas pájaro devoradores de almas, peces voladores y cerdas con tocas notariales— constituyen un alfabeto esotérico sobre la fragilidad del libre albedrío, la trampa de las apariencias y la constante pugna entre la caída y la redención.</p>
+                        <p>Este mazo traslada la estructura universal de los 22 Arcanos Mayores del Tarot clásico a las visiones de El Bosco, convirtiendo cada naipe en un espejo de introspección psicológica y espiritual.</p>
+                    </article>
+
+                    <!-- CAPÍTULO II -->
+                    <article class="codex-article-content" id="codex-spreads" style="display: none;">
+                        <h3>II. Las Tres Tiradas Sagradas</h3>
+                        <p>El mazo ofrece tres formas de consultar el bestiario según la profundidad y naturaleza de tu interrogante:</p>
+
+                        <h4 style="color: var(--gold-light); margin-top: 15px; font-family: var(--font-sub);">1. El Ojo de San Antonio (1 Carta)</h4>
+                        <p>Inspirada en la templanza y serenidad del ermitaño de la Tebaida, quien no apartaba su mirada interior pese a estar rodeado de quimeras delirantes. Esta tirada es ideal para:</p>
+                        <ul>
+                            <li>Consejo directo y conciso para comenzar el día.</li>
+                            <li>Foco meditativo ante una decisión inmediata.</li>
+                            <li>Identificar el núcleo esencial de un problema.</li>
+                        </ul>
+
+                        <h4 style="color: var(--gold-light); margin-top: 15px; font-family: var(--font-sub);">2. El Tríptico de las Delicias (3 Cartas)</h4>
+                        <p>La tirada clásica por excelencia, modelada según las tres tablas del tríptico más famoso del mundo:</p>
+                        <ul>
+                            <li><strong>Tabla Izquierda - El Edén (El Pasado):</strong> Las raíces inconscientes, la semilla original del dilema y la inocencia previa al conflicto.</li>
+                            <li><strong>Tabla Central - El Jardín de las Delicias (El Presente):</strong> Los apegos actuales, las distracciones, el deseo vivo y la encrucijada moral en la que te encuentras hoy.</li>
+                            <li><strong>Tabla Derecha - El Infierno Musical (El Futuro):</strong> La cosecha kármica probable, las consecuencias de tus hábitos y la transformación necesaria.</li>
+                        </ul>
+
+                        <h4 style="color: var(--gold-light); margin-top: 15px; font-family: var(--font-sub);">3. La Cruz Grotesca del Juicio (5 Cartas)</h4>
+                        <p>La tirada mayor para situaciones de alta complejidad donde confluyen múltiples fuerzas internas y externas:</p>
+                        <ul>
+                            <li><strong>Centro (El Alma):</strong> El consultante en su estado de conciencia actual.</li>
+                            <li><strong>Flanco Izquierdo (La Tentación):</strong> El canto de sirena, la distracción seductora que desvía la energía.</li>
+                            <li><strong>Flanco Derecho (El Juicio):</strong> El obstáculo exterior tangible, la prueba o la ley de la realidad.</li>
+                            <li><strong>Raíz Inferior (La Lechuza Subterránea):</strong> Lo que yace oculto en el subconsciente, miedos reprimidos o sabiduría olvidada.</li>
+                            <li><strong>Ápice Superior (La Cúpula de Cristal):</strong> La resolución espiritual superior y la trascendencia de la situación.</li>
+                        </ul>
+                    </article>
+
+                    <!-- CAPÍTULO III -->
+                    <article class="codex-article-content" id="codex-reversed" style="display: none;">
+                        <h3>III. La Polaridad del Alma: Cartas al Derecho e Invertidas</h3>
+                        <p>En el pensamiento hermético medieval, ninguna fuerza es puramente destructiva ni puramente bienhechora; todo reside en la armonía de la medida y la templanza.</p>
+                        <p><strong>Cartas al Derecho (Luz / Consejo):</strong> Indican que la energía del arcano fluye de manera constructiva. Brindan virtudes, advertencias lúcidas, talentos disponibles y horizontes de crecimiento moral y creativo.</p>
+                        <p><strong>Cartas Invertidas (Sombra / Advertencia):</strong> Revelan un exceso, un bloqueo o una distorsión de la energía del arcano. No anuncian fatalidades inevitables, sino llamadas de atención sobre autoengaños, apegos tóxicos o cobardía moral.</p>
+                        <p><em>Nota:</em> Puedes activar o desactivar las cartas invertidas en cualquier momento usando el interruptor situado en la barra de control superior.</p>
+                    </article>
+
+                    <!-- CAPÍTULO IV -->
+                    <article class="codex-article-content" id="codex-realms" style="display: none;">
+                        <h3>IV. Los Cuatro Reinos de la Obra</h3>
+                        <p>Las 22 cartas del mazo están organizadas bajo la geografía espiritual de El Bosco:</p>
+                        <ul>
+                            <li><strong>El Edén:</strong> La pureza mineral, las fuentes biológicas del origen, la lechuza contemplativa y el globo intocado de la Creación. Simboliza la intuición pura y el retorno a lo sagrado.</li>
+                            <li><strong>Las Delicias:</strong> La exuberancia terrenal, el deleite sensorial, la pompa de cristal, la fresa gigante y el carrusel de las pasiones. Simboliza el libre albedrío y sus riesgos.</li>
+                            <li><strong>El Infierno:</strong> La ciudadela en llamas, el hombre-árbol, el arpa de tormento, el cuchillo entre orejas colosales y el monarca pájaro. Simboliza la catarsis, la purificación del ego y el juicio kármico.</li>
+                            <li><strong>La Peregrinación:</strong> El caminante andrajoso, el santo en las ruinas, el pez volador y el alquimista del embudo. Simboliza el alma humana en constante tránsito hacia la iluminación.</li>
+                        </ul>
+                    </article>
+
+                    <!-- CAPÍTULO V -->
+                    <article class="codex-article-content" id="codex-ritual" style="display: none;">
+                        <h3>V. Ritual de Consulta y Concentración</h3>
+                        <p>Para obtener lecturas fértiles y lúcidas con el Tarot del Bosco, se recomienda observar los siguientes pasos:</p>
+                        <ol style="margin-left: 20px; line-height: 1.8;">
+                            <li><strong>Silencio y Sosiego:</strong> Activa la música ambiental medieval para sintonizar tu mente con un estado de sosiego contemplativo.</li>
+                            <li><strong>Definición de la Pregunta:</strong> Formula una interrogante orientada a la comprensión y el crecimiento personal, evitando la curiosidad trivial.</li>
+                            <li><strong>El Barajado:</strong> Presiona el botón de barajar visualizando tu dilema sobre el tapete místico.</li>
+                            <li><strong>Revelación Consciente:</strong> Voltea las cartas una a una con el cursor, leyendo su título y permitiendo que la imagen penetre en tu imaginación antes de consultar su texto explicativo.</li>
+                            <li><strong>Integración:</strong> Lee la síntesis oracular final y reflexiona sobre qué aspecto de tu conducta te invita a corregir o celebrar.</li>
+                        </ol>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS DE LA APLICACIÓN -->
+    <script src="js/deck-data.js"></script>
+    <script src="js/audio-engine.js"></script>
+    <script src="js/tarot-app.js"></script>
+</body>
+</html>

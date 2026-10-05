@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Árbol sefirótico: tu mapa personal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@500;700&family=Hanken+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌳</text></svg>">
+</head>
+<body>
+<main>
+  <header class="top">
+    <h1>Tu árbol sefirótico</h1>
+    <button id="theme" class="g" type="button" aria-label="Cambiar tema claro/oscuro">◐</button>
+  </header>
+  <p class="mut">Introduce tu nombre y fecha de nacimiento para ver cómo se reparte tu energía entre las diez sefirot y qué camino de las 22 letras te lleva de tu fortaleza a tu área de crecimiento.</p>
+
+  <form id="f" novalidate>
+    <label>Nombre completo
+      <input id="n" required autocomplete="name" placeholder="Ej. Ana María López">
+    </label>
+    <fieldset>
+      <legend>Fecha de nacimiento</legend>
+      <div class="date">
+        <input id="dd" type="number" inputmode="numeric" min="1" max="31" placeholder="Día" aria-label="Día" required>
+        <select id="mm" aria-label="Mes" required>
+          <option value="">Mes</option>
+        </select>
+        <input id="yy" type="number" inputmode="numeric" min="1900" placeholder="Año" aria-label="Año" required>
+      </div>
+    </fieldset>
+    <p id="err" class="err" role="alert"></p>
+    <button type="submit">Calcular mi mapa</button>
+  </form>
+
+  <div class="chips" id="chips" aria-label="Perfiles guardados"></div>
+
+  <section id="out" class="hide">
+    <h2 id="tit"></h2>
+    <p id="sub" class="mut"></p>
+    <svg id="tree" viewBox="0 0 360 490" role="group" aria-label="Árbol de la Vida con tu energía por sefirá"></svg>
+    <div id="det" aria-live="polite">Toca una sefirá para ver su significado.</div>
+
+    <h2>Energía por sefirá</h2>
+    <div id="bars"></div>
+    <h2>Los tres pilares</h2>
+    <div id="pillars"></div>
+
+    <h2>Tu camino de transformación</h2>
+    <p id="pathIntro" class="mut"></p>
+    <div id="steps"></div>
+
+    <details id="how">
+      <summary>¿De dónde salen estos números?</summary>
+      <div id="src"></div>
+    </details>
+
+    <p class="mut small">Lectura simbólica basada en numerología reducida del nacimiento y del nombre sobre el Árbol de la Vida. Es una herramienta de reflexión, no un diagnóstico.</p>
+  </section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

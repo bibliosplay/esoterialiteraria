@@ -1,0 +1,814 @@
+/* ===================================================
+   LIBER CCCXXXIII (El Libro de las Mentiras)
+   Estilos Alquímicos y Herméticos
+   =================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap');
+
+:root {
+    --bg-abyss: #08060c;
+    --bg-surface: #120e18;
+    --bg-card: #191424;
+    --bg-card-hover: #231c33;
+    
+    --gold-primary: #d4af37;
+    --gold-light: #f7e7a8;
+    --gold-dark: #8b7322;
+    --gold-glow: rgba(212, 175, 55, 0.35);
+
+    --crimson-babalon: #9e1b25;
+    --crimson-glow: rgba(192, 41, 43, 0.4);
+    
+    --text-primary: #e6dfd1;
+    --text-muted: #a3998b;
+    --text-highlight: #fff6d9;
+
+    --border-ornate: 1px solid rgba(212, 175, 55, 0.3);
+    --border-gold-glow: 0 0 15px rgba(212, 175, 55, 0.2);
+
+    --font-heading: 'Cinzel', serif;
+    --font-decorative: 'Cinzel Decorative', 'Cinzel', serif;
+    --font-body: 'Cormorant Garamond', Georgia, serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-abyss);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 19px;
+    line-height: 1.6;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    background-image: 
+        radial-gradient(circle at 50% 15%, rgba(158, 27, 37, 0.15), transparent 45%),
+        radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.08), transparent 40%),
+        radial-gradient(circle at 10% 90%, rgba(30, 20, 50, 0.4), transparent 50%);
+}
+
+/* Canvas místico de Geometría Sagrada de Fondo */
+#sacred-geometry-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.35;
+}
+
+/* Contenedor Principal */
+.app-container {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px 24px 60px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Encabezado Ocultista */
+header.app-header {
+    text-align: center;
+    padding: 25px 0 20px;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.sigil-banner {
+    font-size: 32px;
+    color: var(--gold-primary);
+    letter-spacing: 12px;
+    margin-bottom: 6px;
+    text-shadow: 0 0 10px var(--gold-glow);
+}
+
+h1.main-title {
+    font-family: var(--font-decorative);
+    font-size: clamp(28px, 5vw, 44px);
+    color: var(--gold-light);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.5), 0 2px 4px rgba(0, 0, 0, 0.8);
+    margin-bottom: 6px;
+}
+
+.sub-title {
+    font-family: var(--font-heading);
+    font-size: 14px;
+    color: var(--gold-dark);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.quote-banner {
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 17px;
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+/* Barra de Navegación Esotérica */
+nav.mode-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.nav-btn {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-family: var(--font-heading);
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    padding: 10px 20px;
+    border: var(--border-ornate);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    position: relative;
+    border-radius: 2px;
+}
+
+.nav-btn:hover {
+    background: var(--bg-card-hover);
+    color: var(--gold-light);
+    border-color: var(--gold-primary);
+    box-shadow: 0 0 12px var(--gold-glow);
+}
+
+.nav-btn.active {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.18), rgba(158, 27, 37, 0.25));
+    border-color: var(--gold-primary);
+    color: var(--gold-light);
+    box-shadow: 0 0 16px var(--gold-glow);
+}
+
+/* Control de Audio Flotante */
+.audio-controls {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+    display: flex;
+    gap: 8px;
+    background: rgba(18, 14, 24, 0.9);
+    padding: 8px 14px;
+    border: var(--border-ornate);
+    border-radius: 30px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+.audio-btn {
+    background: none;
+    border: none;
+    color: var(--gold-primary);
+    font-family: var(--font-heading);
+    font-size: 13px;
+    cursor: pointer;
+    padding: 4px 8px;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.audio-btn:hover {
+    color: var(--gold-light);
+    text-shadow: 0 0 8px var(--gold-glow);
+}
+
+/* Medidores Alquímicos (Gnosis vs Ego) */
+.alchemy-meters {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    background: var(--bg-surface);
+    border: var(--border-ornate);
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.meter-box {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.meter-header {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-heading);
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+.meter-label-ego {
+    color: #e57373;
+}
+
+.meter-label-gnosis {
+    color: var(--gold-light);
+}
+
+.meter-track {
+    height: 12px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+}
+
+.meter-fill-ego {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, #b71c1c, #e53935);
+    transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow: 0 0 8px var(--crimson-glow);
+}
+
+.meter-fill-gnosis {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #997a15, #f3e5ab);
+    transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow: 0 0 10px var(--gold-glow);
+}
+
+/* Vistas de Contenido */
+.view-section {
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+
+.view-section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- MODO INICIACIÓN: VISTA DE PORTAL --- */
+.portal-card {
+    background: var(--bg-card);
+    border: var(--border-ornate);
+    border-radius: 4px;
+    padding: 30px;
+    position: relative;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+}
+
+.portal-nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.portal-tag {
+    font-family: var(--font-heading);
+    color: var(--gold-primary);
+    font-size: 14px;
+    letter-spacing: 2px;
+}
+
+.portal-badge {
+    background: rgba(158, 27, 37, 0.3);
+    color: #ffcdd2;
+    padding: 3px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-family: var(--font-heading);
+    border: 1px solid rgba(158, 27, 37, 0.6);
+}
+
+.portal-title {
+    font-family: var(--font-heading);
+    font-size: clamp(22px, 3.5vw, 30px);
+    color: var(--gold-light);
+    margin-bottom: 14px;
+}
+
+.portal-epigraph {
+    font-style: italic;
+    color: #d1c7b7;
+    background: rgba(0, 0, 0, 0.3);
+    border-left: 3px solid var(--gold-primary);
+    padding: 12px 18px;
+    margin-bottom: 20px;
+    border-radius: 0 4px 4px 0;
+}
+
+.portal-text {
+    white-space: pre-line;
+    color: var(--text-primary);
+    font-size: 19px;
+    line-height: 1.75;
+    margin-bottom: 25px;
+    padding: 0 10px;
+}
+
+/* Acordeón del Comentario de Crowley */
+.crowley-comment-box {
+    background: rgba(18, 14, 24, 0.85);
+    border: 1px dashed rgba(212, 175, 55, 0.35);
+    border-radius: 4px;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.crowley-comment-box:hover {
+    background: rgba(26, 20, 36, 0.95);
+    border-color: var(--gold-primary);
+}
+
+.crowley-comment-header {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-heading);
+    color: var(--gold-primary);
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.crowley-comment-content {
+    margin-top: 12px;
+    color: #cebfa8;
+    font-style: italic;
+    font-size: 18px;
+    border-top: 1px solid rgba(212, 175, 55, 0.15);
+    padding-top: 10px;
+    display: none;
+}
+
+.crowley-comment-content.open {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+/* Sección de Desafío / Pregunta */
+.challenge-box {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    padding: 24px;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+.challenge-question {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    color: var(--gold-light);
+    margin-bottom: 18px;
+    line-height: 1.5;
+}
+
+.options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.option-btn {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 14px 18px;
+    text-align: left;
+    font-family: var(--font-body);
+    font-size: 19px;
+    line-height: 1.4;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.25s ease;
+}
+
+.option-btn:hover:not(:disabled) {
+    background: var(--bg-card-hover);
+    border-color: var(--gold-primary);
+    color: var(--gold-light);
+    transform: translateX(4px);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+}
+
+.option-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Feedback de Respuesta */
+.feedback-box {
+    margin-top: 20px;
+    padding: 16px 20px;
+    border-radius: 4px;
+    display: none;
+    font-size: 18px;
+    animation: fadeIn 0.3s ease;
+}
+
+.feedback-box.show {
+    display: block;
+}
+
+.feedback-box.truth {
+    background: rgba(212, 175, 55, 0.15);
+    border: 1px solid var(--gold-primary);
+    color: var(--gold-light);
+}
+
+.feedback-box.dogma {
+    background: rgba(158, 27, 37, 0.2);
+    border: 1px solid #e53935;
+    color: #ffcdd2;
+}
+
+.portal-action-row {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.next-portal-btn {
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold-primary));
+    color: #000;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 2px;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.next-portal-btn:hover {
+    box-shadow: 0 0 20px var(--gold-primary);
+    transform: translateY(-2px);
+}
+
+/* Mini-Juego de Ritual: Rubí Estrella */
+.ritual-stage {
+    background: rgba(10, 5, 15, 0.7);
+    border: 1px solid var(--gold-dark);
+    padding: 20px;
+    border-radius: 4px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.ritual-step-name {
+    font-family: var(--font-heading);
+    color: var(--gold-primary);
+    font-size: 15px;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.ritual-prompt {
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 18px;
+}
+
+.ritual-choices {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.ritual-choice-btn {
+    background: var(--bg-card);
+    border: var(--border-ornate);
+    color: var(--gold-light);
+    font-family: var(--font-heading);
+    padding: 12px 20px;
+    font-size: 15px;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: all 0.25s;
+    border-radius: 2px;
+}
+
+.ritual-choice-btn:hover {
+    background: var(--crimson-babalon);
+    border-color: #ff5252;
+    color: #fff;
+    box-shadow: 0 0 15px var(--crimson-glow);
+}
+
+/* Pantalla de Victoria: El Niño del Abismo */
+.victory-screen {
+    text-align: center;
+    padding: 40px 20px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.2), rgba(0, 0, 0, 0.9) 75%);
+    border: 2px solid var(--gold-primary);
+    border-radius: 6px;
+    box-shadow: 0 0 40px var(--gold-glow);
+}
+
+.victory-title {
+    font-family: var(--font-decorative);
+    font-size: clamp(28px, 4.5vw, 42px);
+    color: var(--gold-light);
+    letter-spacing: 3px;
+    margin-bottom: 15px;
+}
+
+.victory-sigil {
+    font-size: 64px;
+    color: var(--gold-primary);
+    margin: 20px 0;
+    animation: pulse 2.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 20px var(--gold-primary)); }
+}
+
+/* --- MODO ORÁCULO: CARTAS Y CÓDICE --- */
+.oracle-controls {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.oracle-btn {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(158, 27, 37, 0.25));
+    border: var(--border-ornate);
+    color: var(--gold-light);
+    font-family: var(--font-heading);
+    padding: 12px 24px;
+    font-size: 14px;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+
+.oracle-btn:hover {
+    box-shadow: 0 0 15px var(--gold-glow);
+    border-color: var(--gold-primary);
+    transform: translateY(-2px);
+}
+
+/* Cuadrícula de Cartas del Oráculo */
+.oracle-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 22px;
+}
+
+.card-item {
+    background: var(--bg-card);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    border-radius: 4px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+}
+
+.card-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--gold-primary);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.25);
+    background: var(--bg-card-hover);
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.card-number {
+    font-family: var(--font-heading);
+    font-size: 13px;
+    color: var(--gold-primary);
+    letter-spacing: 1px;
+}
+
+.card-symbol {
+    font-size: 24px;
+    color: var(--gold-light);
+}
+
+.card-title {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    color: var(--gold-light);
+    margin-bottom: 8px;
+}
+
+.card-theme {
+    font-size: 14px;
+    color: #b0a495;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 14px;
+}
+
+.card-quote {
+    font-style: italic;
+    color: #dfd7c9;
+    font-size: 17px;
+    line-height: 1.5;
+    margin-bottom: 14px;
+}
+
+.card-paradox {
+    background: rgba(0, 0, 0, 0.4);
+    border-left: 2px solid var(--crimson-babalon);
+    padding: 8px 12px;
+    font-size: 16px;
+    color: #f7e7a8;
+    margin-top: auto;
+}
+
+/* Modal Detallado de Carta */
+.card-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.card-modal-backdrop.open {
+    display: flex;
+    animation: fadeIn 0.25s ease;
+}
+
+.card-modal-content {
+    background: var(--bg-card);
+    border: 2px solid var(--gold-primary);
+    border-radius: 6px;
+    max-width: 600px;
+    width: 100%;
+    padding: 30px;
+    box-shadow: 0 0 40px var(--gold-glow);
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 18px;
+    background: none;
+    border: none;
+    color: var(--gold-primary);
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* --- MODO CRIPTA DE CHORONZON (DUELO) --- */
+.choronzon-arena {
+    background: radial-gradient(circle, rgba(158, 27, 37, 0.2), var(--bg-card) 70%);
+    border: 1px solid var(--crimson-babalon);
+    border-radius: 4px;
+    padding: 35px 25px;
+    text-align: center;
+    box-shadow: 0 0 30px var(--crimson-glow);
+}
+
+.choronzon-sigil {
+    font-size: 52px;
+    color: #ff5252;
+    margin-bottom: 12px;
+    text-shadow: 0 0 20px var(--crimson-glow);
+}
+
+.choronzon-counter {
+    font-family: var(--font-heading);
+    color: var(--gold-primary);
+    font-size: 15px;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.choronzon-riddle-text {
+    font-size: 22px;
+    color: #fff;
+    margin-bottom: 25px;
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+.choronzon-options {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+/* Vista Contexto / Acerca de Liber 333 */
+.lore-section {
+    background: var(--bg-card);
+    border: var(--border-ornate);
+    padding: 35px 30px;
+    border-radius: 4px;
+    line-height: 1.8;
+}
+
+.lore-section h2 {
+    font-family: var(--font-heading);
+    color: var(--gold-light);
+    font-size: 26px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+    padding-bottom: 10px;
+}
+
+.lore-section p {
+    margin-bottom: 16px;
+    font-size: 19px;
+    color: #ded6c8;
+}
+
+.lore-highlight {
+    color: var(--gold-light);
+    font-weight: 600;
+}
+
+/* Footer */
+footer.app-footer {
+    text-align: center;
+    margin-top: auto;
+    padding-top: 35px;
+    color: var(--text-muted);
+    font-size: 15px;
+    font-family: var(--font-heading);
+    letter-spacing: 2px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Responsive */
+@media (max-width: 650px) {
+    .alchemy-meters {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    .portal-card {
+        padding: 20px 16px;
+    }
+    .app-container {
+        padding: 12px 14px 60px;
+    }
+}

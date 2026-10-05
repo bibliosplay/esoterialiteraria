@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Esoteria Literaria · Portal de Experiencias Místicas y Oraculares</title>
+  <meta name="description" content="Colección interactiva de oráculos, tarot surrealista y renacentista, cábala hermética y misticismo filosófico.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Hanken+Grotesk:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+  <style>
+    :root {
+      --bg: #0b0914;
+      --bg-card: rgba(22, 19, 36, 0.78);
+      --bg-card-hover: rgba(32, 27, 52, 0.92);
+      --gold: #d4af37;
+      --gold-light: #f3e7be;
+      --gold-dim: rgba(212, 175, 55, 0.35);
+      --gold-glow: rgba(212, 175, 55, 0.18);
+      --text: #eae4d8;
+      --text-muted: #a39ba8;
+      --border: rgba(212, 175, 55, 0.22);
+      --font-title: 'Cinzel', serif;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Hanken Grotesk', system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 50% 10%, rgba(88, 48, 128, 0.25) 0%, transparent 60%),
+        radial-gradient(circle at 85% 80%, rgba(184, 134, 11, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 10% 90%, rgba(30, 20, 60, 0.4) 0%, transparent 50%);
+    }
+
+    /* Canvas de estrellas sutiles */
+    #stars-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.65;
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 1;
+      width: 100%;
+    }
+
+    /* Header */
+    header {
+      padding: 3.5rem 0 2rem;
+      text-align: center;
+    }
+
+    .sigil-top {
+      font-size: 1.6rem;
+      letter-spacing: 0.5rem;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+      text-shadow: 0 0 12px var(--gold-glow);
+    }
+
+    h1 {
+      font-family: var(--font-title);
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      letter-spacing: 0.08em;
+      color: var(--gold-light);
+      text-shadow: 0 2px 20px rgba(212, 175, 55, 0.3);
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+
+    .tagline {
+      font-family: var(--font-serif);
+      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+      color: var(--text-muted);
+      font-style: italic;
+      max-width: 680px;
+      margin: 0 auto 1.8rem;
+      line-height: 1.5;
+    }
+
+    .separator {
+      width: 140px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 2.5rem;
+    }
+
+    /* Filtros rápidos */
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2.8rem;
+    }
+
+    .filter-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.45rem 1.1rem;
+      border-radius: 999px;
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: rgba(212, 175, 55, 0.15);
+      border-color: var(--gold);
+      color: var(--gold-light);
+      box-shadow: 0 0 14px var(--gold-glow);
+    }
+
+    /* Grid de proyectos */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem 1.8rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+      transition: all 0.3s ease;
+    }
+
+    .project-card:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(212, 175, 55, 0.6);
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5), 0 0 25px var(--gold-glow);
+    }
+
+    .project-card:hover::before {
+      background: linear-gradient(90deg, var(--gold-dim), var(--gold), var(--gold-dim));
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .card-icon {
+      font-size: 2.2rem;
+      line-height: 1;
+      filter: drop-shadow(0 2px 8px var(--gold-glow));
+    }
+
+    .card-badge {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.3rem 0.65rem;
+      border-radius: 6px;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      color: var(--gold-light);
+      font-weight: 600;
+    }
+
+    .card-title {
+      font-family: var(--font-title);
+      font-size: 1.35rem;
+      letter-spacing: 0.03em;
+      color: var(--gold-light);
+      margin-bottom: 0.35rem;
+      line-height: 1.3;
+    }
+
+    .card-author {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      color: var(--gold);
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+
+    .card-desc {
+      color: var(--text);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.4rem;
+      flex-grow: 1;
+      opacity: 0.92;
+    }
+
+    .card-features {
+      list-style: none;
+      margin-bottom: 1.6rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 1rem;
+    }
+
+    .card-features li {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card-features li::before {
+      content: '✦';
+      color: var(--gold);
+      font-size: 0.7rem;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 0.7rem;
+      margin-top: auto;
+    }
+
+    .btn-enter {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(212, 175, 55, 0.1));
+      border: 1px solid var(--gold);
+      color: #fff;
+      text-decoration: none;
+      font-family: var(--font-title);
+      font-size: 0.88rem;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      transition: all 0.25s ease;
+      text-align: center;
+    }
+
+    .btn-enter:hover {
+      background: var(--gold);
+      color: #0b0914;
+      box-shadow: 0 0 18px var(--gold-glow);
+    }
+
+    .btn-readme {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 0.75rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-readme:hover {
+      color: var(--text);
+      border-color: rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    /* Footer */
+    footer {
+      margin-top: auto;
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 0;
+      text-align: center;
+      background: rgba(10, 8, 18, 0.7);
+    }
+
+    footer p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    footer a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="stars-canvas"></canvas>
+
+  <div class="container">
+    <header>
+      <div class="sigil-top">∴ 🜂 🜄 🜁 🜃 ∴</div>
+      <h1>ESOTERIA LITERARIA</h1>
+      <p class="tagline">Colección interactiva de arte hermético, tarots renacentistas y surrealistas, cábala y psicología arquetípica</p>
+      <div class="separator"></div>
+
+      <nav class="filter-bar" aria-label="Filtrar por categoría">
+        <button class="filter-btn active" data-filter="all">Todas las Experiencias (6)</button>
+        <button class="filter-btn" data-filter="tarot">Tarots Sagrados</button>
+        <button class="filter-btn" data-filter="kabbalah">Cábala & Números</button>
+        <button class="filter-btn" data-filter="ritual">Filosofía & Rituales</button>
+      </nav>
+    </header>
+
+    <main class="projects-grid" id="projectsGrid">
+
+      <!-- 1. Tarot El Bosco -->
+      <article class="project-card" data-category="tarot">
+        <div>
+          <div class="card-header">
+            <span class="card-icon">👁️</span>
+            <span class="card-badge">Tarot Medieval</span>
+          </div>
+          <h2 class="card-title">Tarot de las Criaturas de El Bosco</h2>
+          <div class="card-author">Hieronymus Bosch (c. 1450 – 1516)</div>
+          <p class="card-desc">
+            Los 22 Arcanos Mayores mapeados al asombroso bestiario alegórico de <em>El Jardín de las Delicias</em> y <em>Las Tentaciones de San Antonio</em>. Incluye cartas tridimensionales interactivas, síntesis oracular y paisaje sonoro gótico.
+          </p>
+          <ul class="card-features">
+            <li>22 Arcanos Mayores con imágenes pictóricas en alta calidad</li>
+            <li>3 Tiradas Sagradas (Ojo de San Antonio, Tríptico, Cruz Grotesca)</li>
+            <li>Audio procedural medieval en Web Audio API (cero descargas)</li>
+            <li>Efecto 3D de volteo de cartas e inclinación holográfica</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <a href="tarot-el-bosco/index.html" class="btn-enter">Iniciar Tarot ➔</a>
+          <a href="tarot-el-bosco/README.md" class="btn-readme" title="Ver documentación">Manual</a>
+        </div>
+      </article>
+
+      <!-- 2. Tarot Remedios Varo -->
+      <article class="project-card" data-category="tarot">
+        <div>
+          <div class="card-header">
+            <span class="card-icon">✨</span>
+            <span class="card-badge">Tarot Surrealista</span>
+          </div>
+          <h2 class="card-title">Tarot Remedios Varo</h2>
+          <div class="card-author">Remedios Varo Uranga (1908 – 1963)</div>
+          <p class="card-desc">
+            Mazo completo de 78 cartas inspirado en la alquimia visual, los aparatos astronómicos y las tejedoras cósmicas de la pintora surrealista hispanomexicana.
+          </p>
+          <ul class="card-features">
+            <li>78 Cartas completas (22 Arcanos Mayores + 56 Menores)</li>
+            <li>Cuatro palos alquímicos (Bastos, Copas, Espadas, Oros)</li>
+            <li>3 Tiradas oraculares (Carta del día, Pasado-Presente-Futuro, Cruz Celta)</li>
+            <li>Galería con filtros y manual analítico de cada obra</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <a href="tarot-remedios-varo/index.html" class="btn-enter">Iniciar Tarot ➔</a>
+          <a href="tarot-remedios-varo/README.md" class="btn-readme" title="Ver documentación">Manual</a>
+        </div>
+      </article>
+
+      <!-- 3. El Espejo del Alma -->
+      <article class="project-card" data-category="tarot">
+        <div>
+          <div class="card-header">
+            <span class="card-icon">☉</span>
+            <span class="card-badge">Tarot Junguiano</span>
+          </div>
+          <h2 class="card-title">El Espejo del Alma</h2>
+          <div class="card-author">C. G. Jung & Sallie Nichols</div>
+          <p class="card-desc">
+            Lectura arquetípica de los Arcanos Mayores enfocada en la psicología analítica, el proceso de individuación y el diálogo con la Sombra y el Self.
+          </p>
+          <ul class="card-features">
+            <li>22 Arcanos Mayores con polaridades (derecho e invertido)</li>
+            <li>Síntesis local automática en respuesta a la pregunta del consultante</li>
+            <li>3 Modos de Tirada (Instante, El Umbral, Individuación de 5 cartas)</li>
+            <li>Integración opcional serverless con IA (Anthropic Claude vía Vercel)</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <a href="espejo-del-alma/index.html" class="btn-enter">Iniciar Espejo ➔</a>
+          <a href="espejo-del-alma/README.md" class="btn-readme" title="Ver documentación">Manual</a>
+        </div>
+      </article>
+
+      <!-- 4. El Árbol Sefirótico -->
+      <article class="project-card" data-category="kabbalah">
+        <div>
+          <div class="card-header">
+            <span class="card-icon">🌳</span>
+            <span class="card-badge">Cábala Hermética</span>
+          </div>
+          <h2 class="card-title">El Árbol Sefirótico</h2>
+          <div class="card-author">Tradición de la Cábala & Numerología</div>
+          <p class="card-desc">
+            Mapa personal de energía sobre el Árbol de la Vida (Etz Jaím). Calcula tu distribución en las 10 sefirot y traza la ruta de los 22 senderos hebreos desde tu fortaleza hacia tu crecimiento.
+          </p>
+          <ul class="card-features">
+            <li>Cálculo con reducción teosófica y guematría de vocales y consonantes</li>
+            <li>Algoritmo BFS para encontrar el camino evolutivo óptimo</li>
+            <li>Diagrama vectorial interactivo en SVG con los Tres Pilares</li>
+            <li>Historial de perfiles en LocalStorage y modo claro/oscuro</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <a href="arbol-sefirotico/index.html" class="btn-enter">Calcular Mapa ➔</a>
+          <a href="arbol-sefirotico/README.md" class="btn-readme" title="Ver documentación">Manual</a>
+        </div>
+      </article>
+
+      <!-- 5. El Libro de la Suerte -->
+      <article class="project-card" data-category="kabbalah">
+        <div>
+          <div class="card-header">
+            <span class="card-icon">🔮</span>
+            <span class="card-badge">Astrología & Quiromancia</span>
+          </div>
+          <h2 class="card-title">El Libro de la Suerte</h2>
+          <div class="card-author">Dr. Gérard Encausse (Papus, 1890)</div>
+          <p class="card-desc">
+            Videojuego oracular basado en la obra del célebre ocultista parisino. Integra rueda zodiacal con física, biorritmo cósmico, quiromancia interactiva y rito de transmutación de la suerte.
+          </p>
+          <ul class="card-features">
+            <li>Rueda astrológica de 12 signos y 5 esferas vitales</li>
+            <li>Mapa quiromántico SVG interactivo (Montes planetarios y líneas maestras)</li>
+            <li>Rito de transmutación con síntesis de audio y descarga de talismanes PNG</li>
+            <li>Diario de oráculos persistente y leyes martinistas de la fortuna</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <a href="el-libro-de-la-suerte-papus/index.html" class="btn-enter">Iniciar Juego ➔</a>
+          <a href="el-libro-de-la-suerte-papus/README.md" class="btn-readme" title="Ver documentación">Manual</a>
+        </div>
+      </article>
+
+      <!-- 6. El Libro de las Mentiras -->
+      <article class="project-card" data-category="ritual">
+        <div>
+          <div class="card-header">
+            <span class="card-icon">🜂</span>
+            <span class="card-badge">Misticismo Thelémico</span>
+          </div>
+          <h2 class="card-title">El Libro de las Mentiras (Liber 333)</h2>
+          <div class="card-author">Aleister Crowley (Frater Perdurabo, 1913)</div>
+          <p class="card-desc">
+            Experiencia web interactiva para desarticular el ego dogmático y penetrar en la paradoja cósmica (0=2) a través de los 7 Portales iniciáticos, la Cripta de Choronzon y el Oráculo de las 93 mentiras.
+          </p>
+          <ul class="card-features">
+            <li>Iniciación por los 7 Portales cabalísticos del Abismo</li>
+            <li>Oráculo interactivo con los capítulos más profundos de Liber 333</li>
+            <li>Arena de acertijos dialécticos contra Choronzon</li>
+            <li>Audio procedural con drone ceremonial de 108Hz y campanas sagradas</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <a href="el-libro-de-las-mentiras/index.html" class="btn-enter">Iniciar Sendero ➔</a>
+          <a href="el-libro-de-las-mentiras/README.md" class="btn-readme" title="Ver documentación">Manual</a>
+        </div>
+      </article>
+
+    </main>
+
+    <footer>
+      <p>
+        <strong>Esoteria Literaria</strong> · Colección de herramientas web interactivas para el estudio cultural, artístico y reflexivo del hermetismo y la literatura simbólica.<br>
+        Desarrollado con estándares web abiertos (HTML5, CSS3, JavaScript Vanilla, SVG, Web Audio API). Sin frameworks dependientes ni rastreo.
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    // Filtros por categoría
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.project-card');
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+
+        cards.forEach(card => {
+          if (filter === 'all' || card.dataset.category === filter) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Fondo animado de estrellas sutiles
+    const canvas = document.getElementById('stars-canvas');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    const stars = Array.from({ length: 65 }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      radius: Math.random() * 1.4 + 0.4,
+      alpha: Math.random(),
+      speed: Math.random() * 0.008 + 0.003
+    }));
+
+    function animateStars() {
+      ctx.clearRect(0, 0, width, height);
+      stars.forEach(star => {
+        star.alpha += star.speed;
+        const brightness = (Math.sin(star.alpha) + 1) / 2;
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(212, 175, 55, ${brightness * 0.7})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(animateStars);
+    }
+    animateStars();
+  </script>
+</body>
+</html>

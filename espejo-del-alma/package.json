@@ -1,0 +1,10 @@
+{
+  "name": "espejo-del-alma",
+  "version": "1.0.0",
+  "description": "El Espejo del Alma - Tarot Junguiano de los Arcanos Mayores",
+  "private": true,
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Static site - no build needed'"
+  }
+}

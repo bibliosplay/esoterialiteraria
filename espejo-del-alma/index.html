@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Un tarot de los arquetipos, inspirado en la lectura junguiana de los Arcanos Mayores. Herramienta reflexiva para dialogar con los propios arquetipos.">
+<meta name="keywords" content="tarot, jung, arquetipos, psicología analítica, individuación, arcanos mayores">
+<meta name="author" content="bibliosplay">
+
+<!-- Open Graph -->
+<meta property="og:title" content="El Espejo del Alma — Tarot Junguiano">
+<meta property="og:description" content="Un tarot de los arquetipos inspirado en la psicología analítica de C. G. Jung. 22 Arcanos Mayores, 3 tipos de tirada, interpretación con IA.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://espejo.bibliosplay.com">
+<meta property="og:image" content="https://espejo.bibliosplay.com/og-image.png">
+<meta property="og:locale" content="es_CL">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="El Espejo del Alma — Tarot Junguiano">
+<meta name="twitter:description" content="Un tarot de los arquetipos inspirado en la psicología analítica de C. G. Jung.">
+<meta name="twitter:image" content="https://espejo.bibliosplay.com/og-image.png">
+
+<title>El Espejo del Alma — Tarot Junguiano</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☉</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-biblio="espejo">
+<script src="biblio-nav.js"></script>
+<div class="velo" aria-hidden="true"></div>
+
+<div class="envoltorio">
+
+  <header class="cabecera">
+    <div class="marca-circulo" aria-hidden="true">☉</div>
+    <p class="eyebrow">Arcanos Mayores · Arquetipos · Individuación</p>
+    <h1 id="titulo">El Espejo del Alma</h1>
+    <p class="subtitulo" id="subtitulo"></p>
+  </header>
+
+  <main>
+    <section class="panel">
+      <p class="rotulo">Tu pregunta</p>
+      <label class="campo" for="pregunta">Escribe lo que quieres consultar (opcional, pero enfoca la lectura):</label>
+      <textarea id="pregunta" placeholder="¿Qué necesito ver sobre...?"></textarea>
+    </section>
+
+    <fieldset class="panel campo-tiradas">
+      <legend class="rotulo">Elige tu tirada</legend>
+      <div class="tiradas" id="lista-tiradas"></div>
+    </fieldset>
+
+    <button class="boton" id="btn-tirar" disabled>Barajar y revelar las cartas</button>
+
+    <section class="panel oculto panel-resultado" id="resultado" aria-live="polite">
+      <p class="rotulo">Las cartas reveladas</p>
+      <div class="mesa" id="mesa"></div>
+    </section>
+
+    <section id="bloque-sintesis" class="panel oculto" aria-live="polite">
+      <p class="rotulo">Lectura del espejo</p>
+      <div class="sintesis-texto" id="sintesis"></div>
+      <div class="acciones-ia">
+        <button class="boton secundario boton-ia" id="btn-ia">Pedir una interpretación más profunda</button>
+        <button class="boton secundario boton-compartir" id="btn-compartir">Compartir tirada</button>
+      </div>
+      <p class="estado-ia" id="estado-ia" role="status"></p>
+    </section>
+
+    <button class="boton secundario boton-nueva" id="btn-nueva">Comenzar una nueva consulta</button>
+
+    <section class="panel panel-historial" id="bloque-historial">
+      <p class="rotulo">Tiradas recientes</p>
+      <div id="historial" class="historial-lista"></div>
+    </section>
+  </main>
+
+  <footer>
+    Interpretaciones originales inspiradas en la lectura arquetípica del Tarot dentro de la psicología analítica de C. G. Jung, en la línea que explora Sallie Nichols en <em>Jung y el Tarot</em>. Este artefacto no reproduce texto del libro; es una herramienta reflexiva, no un sustituto de orientación profesional.
+  </footer>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

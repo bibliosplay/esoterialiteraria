@@ -1,0 +1,1152 @@
+/* ==========================================================================
+   EL LIBRO DE LA SUERTE - PAPUS (Dr. Gérard Encausse)
+   Estilos: Salón Ocultista Victoriano / Martinista Finisecular (1890)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap');
+
+:root {
+  --bg-deep: #08050e;
+  --bg-dark: #120b1e;
+  --bg-surface: #1a102b;
+  --bg-card: rgba(26, 16, 43, 0.85);
+  --bg-glass: rgba(35, 22, 58, 0.65);
+  
+  --gold-primary: #d4af37;
+  --gold-light: #f9e29a;
+  --gold-dark: #916f16;
+  --gold-glow: rgba(212, 175, 55, 0.35);
+
+  --accent-ruby: #e74c3c;
+  --accent-amethyst: #9b59b6;
+  --accent-emerald: #2ecc71;
+  --accent-sapphire: #3498db;
+
+  --text-main: #f5eedb;
+  --text-muted: #bdae93;
+  --text-dim: #7f7487;
+
+  --border-gold: 1px solid rgba(212, 175, 55, 0.35);
+  --border-gold-glow: 1px solid rgba(212, 175, 55, 0.8);
+  --shadow-gold: 0 0 25px rgba(212, 175, 55, 0.2);
+  --shadow-deep: 0 15px 35px rgba(0, 0, 0, 0.6);
+
+  --font-display: 'Cinzel Decorative', serif;
+  --font-heading: 'Cinzel', serif;
+  --font-body: 'Cormorant Garamond', Georgia, serif;
+}
+
+/* Reset & Base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: var(--bg-deep);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-size: 19px;
+  line-height: 1.65;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(circle at 50% 15%, rgba(68, 32, 105, 0.35) 0%, transparent 60%),
+    radial-gradient(circle at 10% 80%, rgba(21, 44, 78, 0.25) 0%, transparent 50%),
+    radial-gradient(circle at 90% 85%, rgba(77, 30, 48, 0.25) 0%, transparent 50%),
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l30 30-30 30L0 30z' fill='%23d4af37' fill-opacity='0.015'/%3E%3C/svg%3E");
+}
+
+/* Canvas de Fondo (Partículas y Geometría Sagrada) */
+#cosmic-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Contenedor Principal */
+.app-container {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px 20px 80px;
+}
+
+/* Header & Barra Superior */
+.header-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 28px;
+  position: relative;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+.header-top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.heritage-seal {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-heading);
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: var(--gold-light);
+  text-transform: uppercase;
+}
+
+.seal-icon {
+  font-size: 20px;
+  filter: drop-shadow(0 0 8px var(--gold-primary));
+}
+
+/* Controles de Audio */
+.audio-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-surface);
+  border: var(--border-gold);
+  border-radius: 40px;
+  padding: 6px 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.audio-btn {
+  background: none;
+  border: none;
+  color: var(--gold-light);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-heading);
+  transition: all 0.3s ease;
+}
+
+.audio-btn:hover {
+  color: #fff;
+  text-shadow: 0 0 8px var(--gold-primary);
+  background: rgba(212, 175, 55, 0.15);
+}
+
+.audio-btn.active {
+  background: rgba(212, 175, 55, 0.25);
+  border: 1px solid var(--gold-primary);
+  box-shadow: 0 0 10px var(--gold-glow);
+}
+
+.volume-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 70px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(212, 175, 55, 0.3);
+  outline: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--gold-light);
+  cursor: pointer;
+  box-shadow: 0 0 6px var(--gold-primary);
+}
+
+/* Títulos Principales */
+.main-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  font-weight: 900;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, #fff7db 0%, #d4af37 50%, #946f15 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 35px rgba(212, 175, 55, 0.3);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  letter-spacing: 3px;
+  color: var(--gold-light);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.epigraph {
+  font-style: italic;
+  color: var(--text-muted);
+  max-width: 800px;
+  font-size: 18px;
+  position: relative;
+  padding: 0 25px;
+}
+
+.epigraph::before, .epigraph::after {
+  content: '❖';
+  color: var(--gold-primary);
+  font-size: 14px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.epigraph::before { left: 0; }
+.epigraph::after { right: 0; }
+
+/* Navegación por Pestañas (Modos de Juego) */
+.nav-tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 35px;
+}
+
+.tab-btn {
+  background: var(--bg-surface);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  color: var(--text-muted);
+  padding: 12px 22px;
+  border-radius: 8px;
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.35s ease;
+  backdrop-filter: blur(10px);
+}
+
+.tab-btn:hover {
+  color: #fff;
+  border-color: var(--gold-primary);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
+  transform: translateY(-2px);
+}
+
+.tab-btn.active {
+  color: #fff;
+  background: linear-gradient(135deg, rgba(62, 34, 100, 0.8), rgba(30, 16, 52, 0.95));
+  border-color: var(--gold-light);
+  box-shadow: 0 0 20px var(--gold-glow), inset 0 0 12px rgba(212, 175, 55, 0.2);
+  transform: translateY(-2px);
+}
+
+.tab-btn .tab-icon {
+  font-size: 18px;
+}
+
+/* Secciones de Contenido */
+.tab-content {
+  display: none;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   MÓDULO 1: EL ORÁCULO DEL ZODÍACO DOBLE
+   ========================================================================== */
+.oracle-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .oracle-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.oracle-wheel-pane {
+  background: var(--bg-card);
+  border: var(--border-gold);
+  border-radius: 16px;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: var(--shadow-deep);
+  position: relative;
+  overflow: hidden;
+}
+
+.oracle-wheel-pane::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+}
+
+/* Rueda Zodiacal Gráfica */
+.wheel-wrapper {
+  position: relative;
+  width: 340px;
+  height: 340px;
+  margin: 15px 0 25px;
+}
+
+#zodiac-wheel-canvas {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), 0 0 20px var(--gold-glow);
+  cursor: pointer;
+  transition: transform 0.1s linear;
+}
+
+.wheel-pointer {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-top: 24px solid var(--gold-light);
+  filter: drop-shadow(0 0 8px var(--gold-primary));
+  z-index: 10;
+  pointer-events: none;
+}
+
+.wheel-center-seal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #2d1847, #130a21);
+  border: 2px solid var(--gold-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-light);
+  font-size: 26px;
+  box-shadow: 0 0 15px var(--gold-glow);
+  pointer-events: none;
+}
+
+/* Botón de Rito / Giro */
+.ritual-action-btn {
+  background: linear-gradient(135deg, #a67c1e 0%, #e5c158 50%, #946f15 100%);
+  color: #12091f;
+  border: none;
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 15px 36px;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+  transition: all 0.35s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ritual-action-btn:hover:not(:disabled) {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.6);
+  filter: brightness(1.15);
+}
+
+.ritual-action-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Selección de Esferas y Preguntas */
+.oracle-query-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.panel-card {
+  background: var(--bg-card);
+  border: var(--border-gold);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: var(--shadow-deep);
+  backdrop-filter: blur(12px);
+  position: relative;
+}
+
+.panel-card h3 {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  color: var(--gold-light);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.category-selector {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.cat-btn {
+  background: var(--bg-surface);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 10px;
+  padding: 12px 10px;
+  color: var(--text-muted);
+  font-family: var(--font-heading);
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.cat-btn .cat-icon {
+  font-size: 22px;
+}
+
+.cat-btn:hover {
+  color: #fff;
+  border-color: var(--gold-primary);
+  background: rgba(212, 175, 55, 0.1);
+}
+
+.cat-btn.selected {
+  border-color: var(--gold-light);
+  background: linear-gradient(145deg, rgba(82, 44, 130, 0.7), rgba(35, 18, 59, 0.9));
+  color: #fff;
+  box-shadow: 0 0 15px var(--gold-glow);
+}
+
+/* Preguntas específicas */
+.questions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.question-item {
+  background: rgba(14, 8, 24, 0.6);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.question-item:hover {
+  border-color: var(--gold-primary);
+  background: rgba(212, 175, 55, 0.1);
+  color: #fff;
+}
+
+.question-item.selected {
+  border-color: var(--gold-light);
+  background: rgba(212, 175, 55, 0.18);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Veredicto del Oráculo */
+.verdict-box {
+  margin-top: 15px;
+  border-radius: 12px;
+  padding: 24px;
+  background: radial-gradient(circle at top, rgba(53, 27, 85, 0.9), rgba(18, 10, 31, 0.95));
+  border: 1px solid var(--gold-primary);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.7), 0 0 25px var(--gold-glow);
+  display: none;
+}
+
+.verdict-box.visible {
+  display: block;
+  animation: fadeIn 0.6s ease;
+}
+
+.verdict-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+  padding-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.verdict-badge {
+  font-family: var(--font-heading);
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 700;
+}
+
+.badge-mayor {
+  background: rgba(46, 204, 113, 0.2);
+  color: #2ecc71;
+  border: 1px solid #2ecc71;
+}
+
+.badge-menor {
+  background: rgba(52, 152, 219, 0.2);
+  color: #3498db;
+  border: 1px solid #3498db;
+}
+
+.badge-advertencia {
+  background: rgba(231, 76, 60, 0.2);
+  color: #e74c3c;
+  border: 1px solid #e74c3c;
+}
+
+.verdict-hour {
+  font-size: 14px;
+  color: var(--gold-light);
+  font-family: var(--font-heading);
+}
+
+.verdict-title {
+  font-family: var(--font-display);
+  font-size: 23px;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.verdict-text {
+  font-size: 18px;
+  margin-bottom: 18px;
+  color: var(--text-main);
+}
+
+.verdict-details {
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  font-size: 15px;
+}
+
+@media (max-width: 600px) {
+  .verdict-details {
+    grid-template-columns: 1fr;
+  }
+}
+
+.verdict-detail-item strong {
+  display: block;
+  font-family: var(--font-heading);
+  color: var(--gold-light);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.verdict-quote {
+  font-style: italic;
+  font-size: 17px;
+  color: var(--gold-light);
+  border-left: 3px solid var(--gold-primary);
+  padding-left: 14px;
+}
+
+/* ==========================================================================
+   MÓDULO 2: NUMEROLOGÍA Y REDUCCIÓN TEOSÓFICA
+   ========================================================================== */
+.numerology-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 30px;
+}
+
+@media (max-width: 960px) {
+  .numerology-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  color: var(--gold-light);
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.input-theosophic {
+  width: 100%;
+  background: var(--bg-surface);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 18px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.input-theosophic:focus {
+  border-color: var(--gold-light);
+  box-shadow: 0 0 15px var(--gold-glow);
+}
+
+/* Resultados de la Reducción */
+.number-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 14px;
+  margin: 20px 0;
+}
+
+.number-card {
+  background: var(--bg-surface);
+  border: var(--border-gold);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.number-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  border-color: var(--gold-light);
+}
+
+.number-card .num-value {
+  font-family: var(--font-display);
+  font-size: 38px;
+  font-weight: 900;
+  color: var(--gold-light);
+  text-shadow: 0 0 15px var(--gold-primary);
+  line-height: 1.1;
+  margin: 6px 0;
+}
+
+.number-card .num-label {
+  font-family: var(--font-heading);
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.lucky-numbers-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 15px 0;
+  flex-wrap: wrap;
+}
+
+.lucky-pill {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #3d2360, #170d27);
+  border: 1px solid var(--gold-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 18px;
+  box-shadow: 0 0 10px var(--gold-glow);
+}
+
+/* Canvas del Biorritmo Astral de Suerte */
+.luck-biorhythm-card {
+  margin-top: 25px;
+}
+
+#biorhythm-canvas {
+  width: 100%;
+  height: 180px;
+  border-radius: 8px;
+  background: rgba(10, 5, 18, 0.7);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+/* ==========================================================================
+   MÓDULO 3: QUIROMANCIA ESOTÉRICA INTERACTIVA
+   ========================================================================== */
+.palmistry-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 30px;
+}
+
+@media (max-width: 960px) {
+  .palmistry-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.palm-interactive-box {
+  background: var(--bg-card);
+  border: var(--border-gold);
+  border-radius: 16px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: var(--shadow-deep);
+  position: relative;
+}
+
+.hand-svg-container {
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+  position: relative;
+  margin: 15px 0;
+}
+
+/* Elementos SVG interactivos */
+.mount-hotspot {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  fill: rgba(212, 175, 55, 0.2);
+  stroke: var(--gold-primary);
+  stroke-width: 1.5;
+}
+
+.mount-hotspot:hover, .mount-hotspot.active {
+  fill: rgba(249, 226, 154, 0.55);
+  stroke: #fff;
+  filter: drop-shadow(0 0 8px var(--gold-light));
+}
+
+.palm-line-path {
+  cursor: pointer;
+  fill: none;
+  stroke: rgba(231, 76, 60, 0.6);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  transition: all 0.3s ease;
+}
+
+.palm-line-path:hover, .palm-line-path.active {
+  stroke: #ff7675;
+  stroke-width: 5;
+  filter: drop-shadow(0 0 10px #e74c3c);
+}
+
+/* Selector de rasgos quirománticos */
+.palm-details-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.palm-tabs-sub {
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.subtab-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-heading);
+  font-size: 14px;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.subtab-btn:hover {
+  color: #fff;
+}
+
+.subtab-btn.active {
+  background: rgba(212, 175, 55, 0.15);
+  color: var(--gold-light);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.finger-test-option {
+  background: var(--bg-surface);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.finger-test-option:hover {
+  border-color: var(--gold-primary);
+  background: rgba(212, 175, 55, 0.1);
+}
+
+.finger-test-option.selected {
+  border-color: var(--gold-light);
+  background: rgba(212, 175, 55, 0.2);
+  box-shadow: 0 0 12px var(--gold-glow);
+}
+
+/* ==========================================================================
+   MÓDULO 4: EL RITO DE TRANSMUTACIÓN (HACER VOLVER LA SUERTE PERDIDA)
+   ========================================================================== */
+.transmutation-layout {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.ritual-steps-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  margin-bottom: 35px;
+}
+
+.ritual-steps-bar::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 30px;
+  right: 30px;
+  height: 2px;
+  background: rgba(212, 175, 55, 0.2);
+  z-index: 0;
+}
+
+.step-node {
+  position: relative;
+  z-index: 1;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: var(--bg-surface);
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--text-muted);
+  transition: all 0.4s ease;
+}
+
+.step-node.active {
+  border-color: var(--gold-light);
+  background: #3c1e63;
+  color: #fff;
+  box-shadow: 0 0 18px var(--gold-glow);
+  transform: scale(1.15);
+}
+
+.step-node.completed {
+  border-color: #2ecc71;
+  background: #194a2b;
+  color: #2ecc71;
+}
+
+/* Pantallas del Rito */
+.ritual-phase {
+  display: none;
+  animation: fadeIn 0.5s ease;
+}
+
+.ritual-phase.active {
+  display: block;
+}
+
+/* Fase 1: Nodos de Fuga Astral */
+.energy-leaks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  margin: 25px 0;
+}
+
+.leak-card {
+  background: var(--bg-surface);
+  border: 1px solid rgba(231, 76, 60, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.leak-card:hover {
+  transform: translateY(-4px);
+  border-color: #e74c3c;
+  box-shadow: 0 8px 25px rgba(231, 76, 60, 0.25);
+}
+
+.leak-card.purged {
+  border-color: #2ecc71;
+  background: rgba(46, 204, 113, 0.1);
+  box-shadow: 0 0 20px rgba(46, 204, 113, 0.2);
+  cursor: default;
+}
+
+.leak-card.purged::after {
+  content: '✓ PURIFICADO';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 10px;
+  font-family: var(--font-heading);
+  letter-spacing: 1px;
+  color: #2ecc71;
+}
+
+/* Fase 2: Sellos Planetarios */
+.sigils-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin: 25px 0;
+}
+
+.sigil-card {
+  background: var(--bg-surface);
+  border: var(--border-gold);
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.sigil-card:hover {
+  border-color: var(--gold-light);
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px var(--gold-glow);
+}
+
+.sigil-card.selected {
+  background: linear-gradient(145deg, #44216e, #1a0c2e);
+  border-color: var(--gold-light);
+  box-shadow: 0 0 25px var(--gold-glow);
+}
+
+.sigil-card .sigil-glyph {
+  font-size: 46px;
+  color: var(--gold-light);
+  margin-bottom: 8px;
+  text-shadow: 0 0 15px var(--gold-primary);
+}
+
+/* Fase 3: Cámara de Carga y Talismán Final */
+.charging-chamber {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 25px;
+}
+
+.progress-track {
+  width: 100%;
+  max-width: 400px;
+  height: 14px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--gold-primary);
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 20px 0;
+  position: relative;
+}
+
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #916f16, #d4af37, #fff7db);
+  box-shadow: 0 0 15px var(--gold-primary);
+  transition: width 0.15s ease;
+}
+
+.hold-charge-btn {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #522785, #1d0e33);
+  border: 2px solid var(--gold-light);
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 0 30px var(--gold-glow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.hold-charge-btn:active, .hold-charge-btn.pulsing {
+  transform: scale(0.96);
+  box-shadow: 0 0 45px rgba(212, 175, 55, 0.8);
+  border-color: #fff;
+}
+
+/* Estampa del Talismán Consagrado */
+.consecrated-talisman-box {
+  background: radial-gradient(circle, #2d1847, #0c0615);
+  border: 2px solid var(--gold-primary);
+  border-radius: 16px;
+  padding: 30px;
+  text-align: center;
+  margin-top: 25px;
+  box-shadow: 0 0 40px var(--gold-glow);
+  position: relative;
+}
+
+/* ==========================================================================
+   MÓDULO 5: CÓDICE HERMÉTICO & DIARIO DE ORÁCULOS
+   ========================================================================== */
+.codex-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+@media (max-width: 960px) {
+  .codex-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.journal-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 480px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.journal-entry {
+  background: var(--bg-surface);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.journal-entry .entry-date {
+  font-size: 13px;
+  color: var(--gold-light);
+  font-family: var(--font-heading);
+}
+
+/* Footer Ocultista */
+.footer-bar {
+  margin-top: 60px;
+  text-align: center;
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
+  padding-top: 25px;
+  color: var(--text-dim);
+  font-size: 15px;
+}
+
+.footer-seal {
+  margin-bottom: 8px;
+  color: var(--gold-primary);
+  font-size: 20px;
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.3);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-primary);
+}

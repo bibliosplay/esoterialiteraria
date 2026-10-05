@@ -1,0 +1,107 @@
+{
+  "meta": {
+    "titulo": "El Espejo del Alma",
+    "subtitulo": "Un tarot de los arquetipos, inspirado en la lectura junguiana de los Arcanos Mayores",
+    "nota": "Interpretaciones originales inspiradas en la relación entre el Tarot y la psicología analítica de C. G. Jung (arquetipos, sombra, individuación), en la línea de lectura que propone Sallie Nichols en 'Jung y el Tarot'. No reproduce texto del libro."
+  },
+  "spreads": [
+    {
+      "id": "una",
+      "nombre": "Una carta — Espejo del instante",
+      "descripcion": "Una sola carta para iluminar el arquetipo que está activo ahora mismo en tu pregunta.",
+      "posiciones": [
+        { "id": 1, "nombre": "El arquetipo activo", "sentido": "La energía inconsciente que hoy actúa a través de ti." }
+      ]
+    },
+    {
+      "id": "tres",
+      "nombre": "Tres cartas — El umbral",
+      "descripcion": "Situación, la sombra que la habita, y el consejo del Self para atravesarla.",
+      "posiciones": [
+        { "id": 1, "nombre": "Situación consciente", "sentido": "Cómo ves tú, con tu Persona y tu Ego, lo que preguntas." },
+        { "id": 2, "nombre": "Sombra / lo no visto", "sentido": "Lo que la pregunta oculta, proyecta o evita mirar." },
+        { "id": 3, "nombre": "Consejo del Self", "sentido": "Hacia dónde te empuja tu totalidad psíquica para integrar la situación." }
+      ]
+    },
+    {
+      "id": "camino",
+      "nombre": "Camino de individuación (5 cartas)",
+      "descripcion": "Una tirada mayor inspirada en el 'Viaje del Loco': Persona, Sombra, Anima/Animus, Fuerzas en juego y Self.",
+      "posiciones": [
+        { "id": 1, "nombre": "Persona", "sentido": "La máscara con la que te presentas ante esta situación." },
+        { "id": 2, "nombre": "Sombra", "sentido": "Lo que rechazas, niegas o no reconoces como propio aquí." },
+        { "id": 3, "nombre": "Anima / Animus", "sentido": "La voz interior opuesta a tu actitud consciente; tu contraparte psíquica." },
+        { "id": 4, "nombre": "Fuerzas en juego", "sentido": "Las dinámicas —internas y externas— que mueven esta situación." },
+        { "id": 5, "nombre": "El Self", "sentido": "El centro ordenador: hacia qué integración te orienta esta pregunta." }
+      ]
+    }
+  ],
+  "arcanos": [
+    { "numero": 0, "nombre": "El Loco", "arquetipo": "El Niño divino / el Self naciente", "simbolo": "0", "elemento": "Aire — el impulso sin forma",
+      "up": { "palabras": ["potencial", "confianza", "salto al vacío", "comienzo"], "significado": "Representa el impulso original de la psique, anterior a toda estructura: la disposición a confiar en lo desconocido y dar el primer paso del proceso de individuación, sin garantías ni mapa." },
+      "rev": { "palabras": ["imprudencia", "dispersión", "miedo a empezar"], "significado": "El impulso vital se vuelve caótico o, al contrario, se paraliza por miedo: se actúa sin conciencia, o no se actúa por no soportar la incertidumbre del inicio." } },
+    { "numero": 1, "nombre": "El Mago", "arquetipo": "El Ego consciente / la voluntad creadora", "simbolo": "I", "elemento": "Voluntad dirigida",
+      "up": { "palabras": ["habilidad", "concentración", "manifestación", "voluntad"], "significado": "Es la capacidad del yo consciente de tomar los materiales del mundo interior y exterior y convertirlos en acción concreta: el puente entre pensar y hacer." },
+      "rev": { "palabras": ["manipulación", "dispersión de energía", "talento no usado"], "significado": "La voluntad se pone al servicio del engaño —propio o ajeno— o simplemente no se enfoca; el potencial existe pero no se traduce en acto." } },
+    { "numero": 2, "nombre": "La Sacerdotisa", "arquetipo": "Anima como guardiana del inconsciente", "simbolo": "II", "elemento": "Agua — saber no racional",
+      "up": { "palabras": ["intuición", "misterio", "saber interior", "silencio"], "significado": "Custodia el umbral entre lo consciente y lo inconsciente. Invita a confiar en el saber que no puede demostrarse con lógica, el que llega en sueños, presentimientos y silencios." },
+      "rev": { "palabras": ["desconexión interior", "secretos que pesan", "negación de la intuición"], "significado": "Se ignora la voz interior en favor de lo puramente racional, o el misterio se convierte en secreto que aísla en lugar de nutrir." } },
+    { "numero": 3, "nombre": "La Emperatriz", "arquetipo": "La Gran Madre", "simbolo": "III", "elemento": "Tierra — fertilidad psíquica",
+      "up": { "palabras": ["creatividad", "abundancia", "naturaleza instintiva", "cuidado"], "significado": "Es el arquetipo materno en su forma nutricia: la capacidad de gestar, cuidar y dejar crecer —ideas, proyectos, vínculos, partes de uno mismo— con paciencia orgánica." },
+      "rev": { "palabras": ["sobreprotección", "bloqueo creativo", "descuido de sí"], "significado": "El cuidado se vuelve asfixiante, o la persona se olvida de nutrirse a sí misma mientras da a los demás; la creatividad se estanca por exceso de control." } },
+    { "numero": 4, "nombre": "El Emperador", "arquetipo": "El Padre / el Logos estructurante", "simbolo": "IV", "elemento": "Fuego — orden y límite",
+      "up": { "palabras": ["estructura", "autoridad", "disciplina", "límites sanos"], "significado": "Representa la función paterna de la psique: la capacidad de poner orden, sostener límites y construir estructuras que permitan que la vida —y el yo— se sostengan en el tiempo." },
+      "rev": { "palabras": ["rigidez", "autoritarismo", "falta de estructura"], "significado": "El orden se vuelve control excesivo, o su ausencia deja a la persona sin sostén, sin reglas propias que la organicen." } },
+    { "numero": 5, "nombre": "El Sumo Sacerdote", "arquetipo": "El Sabio / la tradición colectiva", "simbolo": "V", "elemento": "Sabiduría heredada",
+      "up": { "palabras": ["tradición", "aprendizaje", "guía", "pertenencia"], "significado": "Encarna el saber transmitido por generaciones: instituciones, maestros, doctrinas. Invita a apoyarse en un marco compartido de sentido, sin perder el criterio propio." },
+      "rev": { "palabras": ["dogmatismo", "conformismo", "rebeldía reactiva"], "significado": "La tradición se vuelve jaula, se sigue por inercia sin cuestionar, o se rechaza en bloque solo por oposición, sin discernimiento." } },
+    { "numero": 6, "nombre": "Los Enamorados", "arquetipo": "La Sizigia — unión de opuestos (Anima/Animus)", "simbolo": "VI", "elemento": "Elección consciente",
+      "up": { "palabras": ["elección", "unión", "integración de opuestos", "valores"], "significado": "Simboliza el encuentro entre el yo consciente y su contraparte inconsciente (anima o animus), y la elección moral que surge de reconocer y dialogar con esa 'otredad' interior." },
+      "rev": { "palabras": ["desarmonía interior", "elección evitada", "proyección"], "significado": "Se elige por miedo o por presión externa, o se proyecta en otra persona lo que en realidad pertenece al propio mundo interno, generando desencuentro." } },
+    { "numero": 7, "nombre": "El Carro", "arquetipo": "El Héroe", "simbolo": "VII", "elemento": "Voluntad en marcha",
+      "up": { "palabras": ["determinación", "autocontrol", "avance", "victoria del ego"], "significado": "Es el momento heroico en que el yo logra dirigir fuerzas contrarias —dentro y fuera de sí— hacia una misma dirección, avanzando pese a la tensión de los opuestos." },
+      "rev": { "palabras": ["dispersión", "pérdida de rumbo", "lucha de poder interior"], "significado": "Las fuerzas internas tiran en direcciones distintas y el avance se frena; falta la disciplina o la claridad de propósito para sostener el impulso." } },
+    { "numero": 8, "nombre": "La Fuerza", "arquetipo": "Integración de la Sombra instintiva", "simbolo": "VIII", "elemento": "Fuerza vital domada",
+      "up": { "palabras": ["coraje suave", "compasión", "dominio de instintos", "paciencia"], "significado": "No se trata de vencer el instinto por la fuerza, sino de acompañarlo con ternura hasta domesticarlo: integrar la energía animal de la Sombra en lugar de reprimirla." },
+      "rev": { "palabras": ["represión", "impulsividad", "duda de sí"], "significado": "El instinto se reprime hasta estallar, o se actúa impulsivamente sin la mediación de la conciencia; falta confianza en la propia fuerza interior." } },
+    { "numero": 9, "nombre": "El Ermitaño", "arquetipo": "El Sabio Anciano", "simbolo": "IX", "elemento": "Introspección",
+      "up": { "palabras": ["retiro", "búsqueda de sentido", "introspección", "guía interior"], "significado": "Invita a apartarse del ruido colectivo para escuchar la propia luz interior; es el arquetipo del guía que primero se encuentra a sí mismo antes de poder orientar a otros." },
+      "rev": { "palabras": ["aislamiento", "evasión", "sabiduría no compartida"], "significado": "El retiro se vuelve huida del mundo, o el conocimiento ganado en soledad no se pone al servicio de nada ni de nadie." } },
+    { "numero": 10, "nombre": "La Rueda de la Fortuna", "arquetipo": "El Self como ciclo", "simbolo": "X", "elemento": "Sincronicidad",
+      "up": { "palabras": ["ciclos", "destino", "cambio", "sincronicidad"], "significado": "Recuerda que la psique, como la vida, se mueve en ciclos que no controla el ego. Invita a reconocer el momento del ciclo en que uno está y a cooperar con él en vez de resistirlo." },
+      "rev": { "palabras": ["resistencia al cambio", "sensación de estancamiento", "repetición de patrones"], "significado": "Se lucha contra el ciclo natural de las cosas, o se repite un patrón inconsciente una y otra vez por no reconocer la lección que insiste en volver." } },
+    { "numero": 11, "nombre": "La Justicia", "arquetipo": "El principio de equilibrio psíquico", "simbolo": "XI", "elemento": "Causa y efecto interior",
+      "up": { "palabras": ["equilibrio", "verdad", "responsabilidad", "consecuencia"], "significado": "Es la conciencia moral que pesa con honestidad las propias acciones y sus efectos, sin autoengaño; el reconocimiento de que la psique busca, tarde o temprano, restaurar el equilibrio." },
+      "rev": { "palabras": ["injusticia percibida", "negación de responsabilidad", "desequilibrio"], "significado": "Se evita ver la propia parte en lo ocurrido, o se vive como víctima de un desequilibrio sin advertir cómo se contribuyó a él." } },
+    { "numero": 12, "nombre": "El Colgado", "arquetipo": "El sacrificio del punto de vista del Ego", "simbolo": "XII", "elemento": "Suspensión",
+      "up": { "palabras": ["rendición", "nueva perspectiva", "pausa", "sacrificio"], "significado": "Propone soltar el control y mirar la situación desde un ángulo invertido al habitual; a veces la única salida es dejar de forzar y permitir que otra comprensión emerja." },
+      "rev": { "palabras": ["resistencia a soltar", "sacrificio inútil", "estancamiento voluntario"], "significado": "Se prolonga un sacrificio o una espera que ya no tiene sentido, o se rechaza la rendición necesaria y se sigue forzando lo que no se puede forzar." } },
+    { "numero": 13, "nombre": "La Muerte", "arquetipo": "La transformación — muerte del viejo Ego", "simbolo": "XIII", "elemento": "Transmutación",
+      "up": { "palabras": ["fin de etapa", "transformación", "dejar ir", "renacimiento"], "significado": "No anuncia una muerte literal, sino el final necesario de una identidad, hábito o etapa para que algo nuevo pueda nacer; es un paso esencial de todo proceso de individuación." },
+      "rev": { "palabras": ["resistencia al cambio", "apego a lo conocido", "transición inconclusa"], "significado": "Se posterga un cierre necesario, aferrándose a lo que ya no tiene vida, lo que prolonga el malestar en vez de permitir el renacimiento." } },
+    { "numero": 14, "nombre": "La Templanza", "arquetipo": "La síntesis alquímica de los opuestos", "simbolo": "XIV", "elemento": "Mezcla — la 'tercera cosa'",
+      "up": { "palabras": ["equilibrio", "paciencia", "integración", "moderación"], "significado": "Simboliza el arte alquímico de mezclar opuestos —razón y emoción, impulso y control— hasta obtener algo nuevo que no es ni uno ni otro: la síntesis propia del proceso de individuación." },
+      "rev": { "palabras": ["desequilibrio", "impaciencia", "excesos"], "significado": "Se fuerza una mezcla antes de tiempo, o se vive en extremos —todo o nada— sin encontrar el punto medio que permitiría la verdadera integración." } },
+    { "numero": 15, "nombre": "El Diablo", "arquetipo": "La Sombra no integrada", "simbolo": "XV", "elemento": "Apego y proyección",
+      "up": { "palabras": ["apego", "materialismo", "atadura", "sombra proyectada"], "significado": "Muestra aquello que se niega como propio y se vive como ajeno o fatal: dependencias, miedos y deseos que controlan desde el inconsciente precisamente porque no se los mira de frente." },
+      "rev": { "palabras": ["liberación", "toma de conciencia", "ruptura de un patrón"], "significado": "Comienza a reconocerse la atadura, lo que abre la posibilidad de soltarla; la sombra empieza a hacerse consciente y pierde parte de su poder." } },
+    { "numero": 16, "nombre": "La Torre", "arquetipo": "El colapso súbito de la Persona", "simbolo": "XVI", "elemento": "Ruptura repentina",
+      "up": { "palabras": ["crisis", "revelación súbita", "derrumbe de lo falso", "shock"], "significado": "Representa el momento en que una estructura construida sobre bases falsas —una máscara, una creencia, una ilusión— se derrumba de golpe, dejando ver una verdad que no podía seguir ignorándose." },
+      "rev": { "palabras": ["crisis evitada temporalmente", "cambio interno silencioso", "miedo al colapso"], "significado": "La ruptura se posterga o sucede de forma más interna y silenciosa; hay miedo anticipado a que algo se derrumbe, aunque el derrumbe aún no ha llegado." } },
+    { "numero": 17, "nombre": "La Estrella", "arquetipo": "La esperanza / renovación del Self", "simbolo": "XVII", "elemento": "Conexión transpersonal",
+      "up": { "palabras": ["esperanza", "fe", "renovación", "conexión con algo mayor"], "significado": "Llega después de una crisis (La Torre) como el momento de calma en que se vislumbra sentido más allá del propio dolor; conexión con algo transpersonal que sostiene y orienta." },
+      "rev": { "palabras": ["desesperanza", "desconexión", "fe debilitada"], "significado": "Cuesta ver luz después de la crisis; hay una desconexión temporal de aquello que antes daba sentido y orientación." } },
+    { "numero": 18, "nombre": "La Luna", "arquetipo": "El inconsciente profundo", "simbolo": "XVIII", "elemento": "Lo no asimilado",
+      "up": { "palabras": ["miedos", "ilusión", "intuición confusa", "contenidos ocultos"], "significado": "Invita a atravesar una zona de penumbra psíquica donde lo real y lo imaginado se confunden; miedos antiguos y contenidos no digeridos de la Sombra emergen pidiendo ser reconocidos." },
+      "rev": { "palabras": ["claridad progresiva", "miedos que se disipan", "confusión que cede"], "significado": "La niebla empieza a levantarse; lo que antes parecía amenazante se revela más manejable al mirarlo de frente, aunque el proceso aún no termina." } },
+    { "numero": 19, "nombre": "El Sol", "arquetipo": "El Niño divino iluminado / el Self radiante", "simbolo": "XIX", "elemento": "Claridad e integración",
+      "up": { "palabras": ["claridad", "vitalidad", "alegría", "autenticidad"], "significado": "Es el momento de conciencia plena y gozosa: lo que estaba oculto se ve con claridad, y la energía vital fluye sin la interferencia de máscaras ni miedos no reconocidos." },
+      "rev": { "palabras": ["claridad parcial", "vitalidad bloqueada", "optimismo forzado"], "significado": "La luz aún no termina de imponerse; hay vitalidad, pero contenida, o un optimismo que suena más a defensa que a alegría genuina." } },
+    { "numero": 20, "nombre": "El Juicio", "arquetipo": "El llamado a la individuación", "simbolo": "XX", "elemento": "Despertar",
+      "up": { "palabras": ["llamado interior", "renacimiento", "revisión de vida", "despertar"], "significado": "Marca el instante en que la psique convoca a una revisión honesta del camino recorrido, un llamado a despertar a una versión más completa e integrada de uno mismo." },
+      "rev": { "palabras": ["duda ante el llamado", "autocrítica excesiva", "resistencia a despertar"], "significado": "El llamado se escucha pero se responde con dureza hacia uno mismo, o se posterga por miedo a lo que implicaría tomarlo en serio." } },
+    { "numero": 21, "nombre": "El Mundo", "arquetipo": "El Self realizado — la totalidad", "simbolo": "XXI", "elemento": "Integración completa",
+      "up": { "palabras": ["totalidad", "realización", "cierre de ciclo", "integración"], "significado": "Representa la culminación temporal de un ciclo de individuación: las partes antes fragmentadas —Persona, Sombra, Anima/Animus— encuentran un punto de integración danzante, no definitivo pero sí real." },
+      "rev": { "palabras": ["ciclo inconcluso", "sensación de incompletitud", "último paso pendiente"], "significado": "El proceso está casi completo, pero falta un último paso de integración o de reconocimiento para que el cierre se sienta genuino." } }
+  ]
+}
