@@ -1,6 +1,6 @@
 /* ============================================================
    TAROT REMEDIOS VARO — MOTOR DE JUEGO, 3D, AUDIO Y SÍNTESIS
-   Mazo Surrealista Completo (78 Cartas)
+   Mazo Surrealista Completo (78 Cartas con Arte Pictórico)
    ============================================================ */
 (function () {
   "use strict";
@@ -16,8 +16,10 @@
     drawnCards: [], // [{ card, reversed, position, isRevealed, element }]
     currentView: "view-home",
     galleryFilter: "all",
+    gallerySort: "default",
     searchQuery: "",
-    journal: []
+    journal: [],
+    activeModalCardId: null
   };
 
   // -------- Utilidades --------
@@ -58,7 +60,7 @@
   // RENDERIZADO DE CARTAS (FRENTE Y 3D FLIP)
   // ==========================================
 
-  // Renderiza el frente estático de una carta (para galería y miniaturas)
+  // Renderiza el frente de una carta con su arte pictórico
   function cardEl(c, opts) {
     opts = opts || {};
     const el = document.createElement("div");
@@ -80,17 +82,16 @@
         
         <div class="card-header-bar">
           <span class="card-num">${esc(numLabel)}</span>
-          <span class="card-element-pill ${elementData.class}">${elementData.icon}</span>
+          <span class="card-element-pill ${elementData.class}" title="${elementData.element}">${elementData.icon}</span>
         </div>
 
         <div class="card-art-box">
-          <div class="card-art-bg-glow"></div>
-          <span class="card-glyph">${esc(c.glifo || VaroArt.getSuitSymbol(c.palo))}</span>
+          ${VaroArt.renderCardArtHTML(c, opts)}
         </div>
 
         <div class="card-info-box">
           <h4 class="card-title">${esc(cardName(c))}</h4>
-          <p class="card-paint-ref">«${esc(c.pintura)}»</p>
+          <p class="card-paint-ref" title="Pintura de Remedios Varo">«${esc(c.pintura)}»</p>
           <span class="card-year-badge">${c.anio || 1955}</span>
         </div>
 
@@ -122,9 +123,9 @@
     // Reverso con filigrana dorada y astrolabio
     const back = document.createElement("div");
     back.className = "card-face card-back";
-    back.innerHTML = VaroArt.getCardBackSVG() + '<div class="card-back-hint">Toca para revelar</div>';
+    back.innerHTML = VaroArt.getCardBackSVG() + '<div class="card-back-hint">Toca para develar</div>';
 
-    // Frente con la carta
+    // Frente con la carta y su pintura
     const front = document.createElement("div");
     front.className = "card-face card-front";
     front.appendChild(cardEl(cardItem.card, { lg: true, reversed: cardItem.reversed }));
@@ -212,8 +213,8 @@
     if (btnMute) {
       btnMute.addEventListener("click", () => {
         const isMuted = window.varoAudio.toggleMute();
-        btnMute.classList.toggle("muted", isMuted);
-        btnMute.textContent = isMuted ? "🔇" : "🔊";
+        btnMute.innerHTML = isMuted ? "🔇" : "🔊";
+        btnMute.classList.toggle("active", isMuted);
       });
     }
 
@@ -326,7 +327,7 @@
         <span class="reading-badge">Consulta Oracular</span>
         <h3>${esc(conf.name)}</h3>
         ${state.userQuestion ? `<p class="reading-user-question">Pregunta formulada: <em>«${esc(state.userQuestion)}»</em></p>` : ''}
-        <p class="reading-hint">Toca cada carta para voltearla y develar el misterio.</p>
+        <p class="reading-hint">Toca cada carta para voltearla y develar el misterio pictórico.</p>
       </div>
       <div class="reading-board-actions">
         <button id="btnRevealAll" class="btn btn-secondary">Revelar todas las cartas</button>
@@ -340,7 +341,6 @@
     tableMat.className = "table-mat spread-" + spreadKey;
 
     if (spreadKey === "celtic") {
-      // Disposición auténtica de Cruz Celta: Panel Cruz (izq) y Panel Báculo (der)
       tableMat.innerHTML = `
         <div class="celtic-cross-section">
           <div class="celtic-slot-cross-center" id="slot-celtic-0"></div>
@@ -359,7 +359,6 @@
       `;
       resultContainer.appendChild(tableMat);
 
-      // Distribuir en las posiciones celtas
       state.drawnCards.forEach((item, idx) => {
         const slotEl = $(`#slot-celtic-${idx}`);
         if (slotEl) {
@@ -373,7 +372,6 @@
       });
 
     } else {
-      // Disposición lineal / cuadrícula armónica (1, 3 o 4 cartas)
       const slotsGrid = document.createElement("div");
       slotsGrid.className = "slots-linear-grid slots-count-" + state.drawnCards.length;
 
@@ -405,7 +403,6 @@
       window.scrollTo({ top: $("#view-reading").offsetTop - 20, behavior: "smooth" });
     });
 
-    // Desplazar hacia la mesa
     resultContainer.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
@@ -425,7 +422,6 @@
       window.varoAudio.playFlip();
     }
 
-    // Verificar si se han revelado todas las cartas para mostrar la síntesis
     const allDone = state.drawnCards.every(c => c.isRevealed);
     if (allDone) {
       renderReadingSynthesis();
@@ -474,7 +470,6 @@
       }
     });
 
-    // Elemento preponderante
     const elementTallies = [
       { name: "Fuego (Bastos)", count: bastosCount, desc: "impulso creativo, voluntad y transformación activa" },
       { name: "Agua (Copas)", count: copasCount, desc: "sensibilidad, corrientes emocionales y memoria subconsciente" },
@@ -484,7 +479,6 @@
     elementTallies.sort((a, b) => b.count - a.count);
     const dominantElement = elementTallies[0].count > 0 ? elementTallies[0] : null;
 
-    // Diagnóstico alquímico general
     let alchemyDiagnosis = "";
     if (majorsCount >= Math.ceil(state.drawnCards.length / 2)) {
       alchemyDiagnosis = "Predominan los <strong>Arcanos Mayores</strong>: tu consulta toca temas existenciales, kármicos y de profunda transformación del Ser. Estás ante un cambio de estación en tu viaje iniciático.";
@@ -494,7 +488,6 @@
       alchemyDiagnosis = "Las fuerzas elementales se reparten en un equilibrio armónico, permitiendo que cuerpo, mente, emoción y voluntad colaboren de manera fluida.";
     }
 
-    // Construcción de la síntesis por posiciones
     let cardsSummaryHTML = state.drawnCards.map((item, idx) => {
       const c = item.card;
       const orientLabel = item.reversed ? "Invertida ↺" : "Derecha";
@@ -538,7 +531,8 @@
         </div>
 
         <div class="synthesis-actions">
-          <button id="btnCopyReading" class="btn btn-primary">📋 Copiar Lectura Completa</button>
+          <button id="btnCopyReading" class="btn btn-primary">📋 Copiar Lectura</button>
+          <button id="btnExportParchment" class="btn btn-secondary">📜 Pergamino Imprimible</button>
           <button id="btnSaveJournal" class="btn btn-secondary">📖 Guardar en mi Grimorio</button>
         </div>
       </div>
@@ -547,8 +541,8 @@
     box.classList.remove("is-hidden");
     box.scrollIntoView({ behavior: "smooth", block: "start" });
 
-    // Acciones de la síntesis
     $("#btnCopyReading").addEventListener("click", copyReadingToClipboard);
+    $("#btnExportParchment").addEventListener("click", openParchmentModal);
     $("#btnSaveJournal").addEventListener("click", saveReadingToJournal);
   }
 
@@ -611,6 +605,74 @@
   }
 
   // ==========================================
+  // PERGAMINO IMPRIMIBLE / EXPORTACIÓN
+  // ==========================================
+
+  function openParchmentModal() {
+    const modal = $("#parchment-modal");
+    const container = $("#parchment-content");
+    if (!modal || !container) return;
+
+    const conf = SPREAD_CONFIGS[state.selectedSpread] || { name: state.selectedSpread };
+    const dateStr = new Date().toLocaleDateString("es-ES", {
+      weekday: "long", year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit"
+    });
+
+    let cardsHTML = state.drawnCards.map((item, idx) => {
+      const c = item.card;
+      return `
+        <div class="parchment-card-row">
+          <div class="parchment-card-art">
+            ${VaroArt.renderCardArtHTML(c, { plain: true })}
+          </div>
+          <div class="parchment-card-details">
+            <span class="parchment-card-pos">${idx + 1}. ${esc(item.position)}</span>
+            <h4 class="parchment-card-title">${esc(cardName(c))} ${item.reversed ? '<span class="rev-pill">↺ Invertida</span>' : ''}</h4>
+            <p class="parchment-paint-ref">Pintura: <em>«${esc(c.pintura)}»</em> (${c.anio || 1955})</p>
+            <p class="parchment-text">${esc(item.reversed ? c.invertido : c.vertical)}</p>
+            <p class="parchment-counsel"><strong>Consejo Alquímico:</strong> ${esc(c.consejo)}</p>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    container.innerHTML = `
+      <div class="parchment-sheet">
+        <div class="parchment-seal">⚗ ☾ 🜂 🜄 🜁 🜃 ☽ ⚗</div>
+        <h2 class="parchment-main-title">Tarot Remedios Varo</h2>
+        <p class="parchment-subtitle">Pergamino de Revelación y Consulta Oracular</p>
+        
+        <div class="parchment-meta-grid">
+          <div><strong>Fecha:</strong> ${esc(dateStr)}</div>
+          <div><strong>Tirada:</strong> ${esc(conf.name)}</div>
+          ${state.userQuestion ? `<div class="parchment-full-col"><strong>Pregunta o Intención:</strong> <em>«${esc(state.userQuestion)}»</em></div>` : ''}
+        </div>
+
+        <hr class="parchment-divider">
+
+        <div class="parchment-cards-stream">
+          ${cardsHTML}
+        </div>
+
+        <div class="parchment-footer">
+          <p>«El mazo es un laboratorio, la lectura un experimento del Ser.»</p>
+          <small>Homenaje a Remedios Varo Uranga (1908–1963) · Esoteria Literaria</small>
+        </div>
+      </div>
+    `;
+
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
+  }
+
+  function closeParchmentModal() {
+    const modal = $("#parchment-modal");
+    if (!modal) return;
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
+  }
+
+  // ==========================================
   // GRIMORIO / HISTORIAL DE LECTURAS
   // ==========================================
 
@@ -645,7 +707,6 @@
         </article>
       `).join("");
 
-      // Bind delete buttons
       container.querySelectorAll("[data-del]").forEach(btn => {
         btn.addEventListener("click", () => {
           const idx = parseInt(btn.dataset.del, 10);
@@ -661,7 +722,7 @@
   }
 
   // ==========================================
-  // GALERÍA DEL MAZO CON BÚSQUEDA EN TIEMPO REAL
+  // GALERÍA DEL MAZO CON BÚSQUEDA Y ORDENACIÓN
   // ==========================================
 
   function renderGallery() {
@@ -670,18 +731,14 @@
     if (!grid) return;
 
     grid.innerHTML = "";
-
     const query = state.searchQuery.toLowerCase().trim();
 
-    const filtered = ALL_CARDS.filter(c => {
-      // Filtro por palo / categoría
+    let filtered = ALL_CARDS.filter(c => {
       let matchesCategory = true;
       if (state.galleryFilter === "major") matchesCategory = c.type === "major";
       else if (state.galleryFilter !== "all") matchesCategory = (c.type === "minor" && c.palo === state.galleryFilter);
 
       if (!matchesCategory) return false;
-
-      // Filtro por término de búsqueda
       if (!query) return true;
 
       const nameMatch = cardName(c).toLowerCase().includes(query);
@@ -691,6 +748,17 @@
 
       return nameMatch || paintMatch || keywordsMatch || yearMatch;
     });
+
+    // Ordenación
+    if (state.gallerySort === "year-asc") {
+      filtered.sort((a, b) => (a.anio || 1955) - (b.anio || 1955));
+    } else if (state.gallerySort === "year-desc") {
+      filtered.sort((a, b) => (b.anio || 1955) - (a.anio || 1955));
+    } else if (state.gallerySort === "name") {
+      filtered.sort((a, b) => cardName(a).localeCompare(cardName(b)));
+    } else if (state.gallerySort === "paint") {
+      filtered.sort((a, b) => (a.pintura || "").localeCompare(b.pintura || ""));
+    }
 
     if (countBadge) {
       countBadge.textContent = `Mostrando ${filtered.length} de 78 cartas`;
@@ -717,6 +785,15 @@
       renderGallery();
       if (window.varoAudio) window.varoAudio.playClick();
     }));
+
+    // Selector de ordenación
+    const sortSel = $("#gallery-sort");
+    if (sortSel) {
+      sortSel.addEventListener("change", (e) => {
+        state.gallerySort = e.target.value;
+        renderGallery();
+      });
+    }
 
     // Búsqueda en vivo
     const searchInput = $("#gallery-search");
@@ -804,6 +881,17 @@
       </div>
     `;
 
+    const visualBanner = `
+      <div class="manual-visual-banner">
+        <div class="manual-artwork-large">
+          ${VaroArt.renderCardArtHTML(c, { lg: true })}
+        </div>
+        <div class="manual-artwork-meta">
+          <strong>Obra pictórica:</strong> «${esc(c.pintura)}» (${c.anio || 1955}) · Remedios Varo
+        </div>
+      </div>
+    `;
+
     const escena = `<div class="manual-block"><h4>Escena de la Pintura</h4><p>${esc(c.escena)}</p></div>`;
     const simb = `
       <div class="manual-block">
@@ -819,17 +907,24 @@
       ? `<p class="manual-cite">${esc(s.name)} · Elemento: ${esc(s.element)} · Principio: ${esc(s.principle)}</p>`
       : `<p class="manual-cite">Arcano Mayor · Estación del Viaje Heroico del Alma</p>`;
 
-    return `<article class="manual-card" id="manual-${c.id}">${head}${escena}${simb}${up}${rev}${counsel}${elementInfo}</article>`;
+    return `<article class="manual-card" id="manual-${c.id}">${head}${visualBanner}${escena}${simb}${up}${rev}${counsel}${elementInfo}</article>`;
   }
 
   // ==========================================
-  // MODAL DE INSPECCIÓN DE CARTA
+  // MODAL DE INSPECCIÓN DE CARTA Y NAVEGACIÓN
   // ==========================================
 
   function openModal(c, reversed) {
     const modal = $("#card-modal");
     const body = $("#modal-body");
+    const counter = $("#modal-card-counter");
     if (!modal || !body) return;
+
+    state.activeModalCardId = c.id;
+    const currentIndex = ALL_CARDS.findIndex(x => x.id === c.id);
+    if (counter && currentIndex !== -1) {
+      counter.textContent = `${currentIndex + 1} de ${ALL_CARDS.length}`;
+    }
 
     modal.classList.add("open");
     modal.setAttribute("aria-hidden", "false");
@@ -850,23 +945,52 @@
     }
   }
 
+  function stepModalCard(delta) {
+    if (state.activeModalCardId === null) return;
+    const currentIndex = ALL_CARDS.findIndex(x => x.id === state.activeModalCardId);
+    if (currentIndex === -1) return;
+    let nextIndex = currentIndex + delta;
+    if (nextIndex < 0) nextIndex = ALL_CARDS.length - 1;
+    if (nextIndex >= ALL_CARDS.length) nextIndex = 0;
+    openModal(ALL_CARDS[nextIndex], false);
+  }
+
   function closeModal() {
     const modal = $("#card-modal");
     if (!modal) return;
     modal.classList.remove("open");
     modal.setAttribute("aria-hidden", "true");
+    state.activeModalCardId = null;
   }
 
   function bindModal() {
     $$("[data-close='modal']").forEach(el => el.addEventListener("click", closeModal));
-    document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+    $$("[data-close='parchment']").forEach(el => el.addEventListener("click", closeParchmentModal));
+
+    const prevBtn = $("#btnModalPrev");
+    const nextBtn = $("#btnModalNext");
+    if (prevBtn) prevBtn.addEventListener("click", () => stepModalCard(-1));
+    if (nextBtn) nextBtn.addEventListener("click", () => stepModalCard(1));
+
+    const printBtn = $("#btnPrintParchment");
+    if (printBtn) printBtn.addEventListener("click", () => window.print());
+
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape") {
+        closeModal();
+        closeParchmentModal();
+      } else if (state.activeModalCardId !== null && $("#card-modal")?.classList.contains("open")) {
+        if (e.key === "ArrowLeft") stepModalCard(-1);
+        else if (e.key === "ArrowRight") stepModalCard(1);
+      }
+    });
   }
 
   function bindCardDelegation() {
     document.addEventListener("click", function (ev) {
       const cardNode = ev.target.closest(".card");
       if (!cardNode) return;
-      if (cardNode.closest(".card-3d-wrapper")) return; // Manejado por el volteo 3D
+      if (cardNode.closest(".card-3d-wrapper")) return; // Manejado por volteo 3D
       if (cardNode.closest(".modal")) return;
 
       ev.stopPropagation();

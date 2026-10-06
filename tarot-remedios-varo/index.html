@@ -153,7 +153,16 @@
           <button class="filter-btn" data-filter="espadas">🗡️ Espadas (Aire)</button>
           <button class="filter-btn" data-filter="oros">🪙 Oros (Tierra)</button>
         </div>
-        <span id="gallery-count-badge" class="gallery-count-badge">Mostrando 78 de 78 cartas</span>
+        <div class="gallery-aux-controls">
+          <select id="gallery-sort" class="gallery-sort-select" title="Criterio de ordenación de cartas">
+            <option value="default">Orden Alquímico Tradicional</option>
+            <option value="year-asc">Año de Pintura (Más antiguo primero)</option>
+            <option value="year-desc">Año de Pintura (Más reciente primero)</option>
+            <option value="name">Alfabético (Nombre de Carta)</option>
+            <option value="paint">Alfabético (Pintura de Remedios Varo)</option>
+          </select>
+          <span id="gallery-count-badge" class="gallery-count-badge">Mostrando 78 de 78 cartas</span>
+        </div>
       </div>
     </div>
 
@@ -181,8 +190,27 @@
 <div id="card-modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
   <div class="modal-backdrop" data-close="modal"></div>
   <div class="modal-panel">
-    <button class="modal-close" data-close="modal" aria-label="Cerrar ventana">&times;</button>
+    <div class="modal-nav-header">
+      <div class="modal-nav-arrows">
+        <button id="btnModalPrev" class="btn-modal-nav" title="Carta Anterior (Flecha Izq)">← Anterior</button>
+        <span id="modal-card-counter" class="modal-counter-badge">1 / 78</span>
+        <button id="btnModalNext" class="btn-modal-nav" title="Carta Siguiente (Flecha Der)">Siguiente →</button>
+      </div>
+      <button class="modal-close" data-close="modal" aria-label="Cerrar ventana">&times;</button>
+    </div>
     <div id="modal-body"></div>
+  </div>
+</div>
+
+<!-- ============ MODAL DE PERGAMINO IMPRIMIBLE ============ -->
+<div id="parchment-modal" class="modal modal-parchment" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="modal-backdrop" data-close="parchment"></div>
+  <div class="modal-panel parchment-panel">
+    <div class="parchment-toolbar no-print">
+      <button id="btnPrintParchment" class="btn btn-primary">🖨️ Imprimir / Guardar en PDF</button>
+      <button class="modal-close" data-close="parchment" aria-label="Cerrar ventana">&times;</button>
+    </div>
+    <div id="parchment-content" class="parchment-scroll"></div>
   </div>
 </div>
 
